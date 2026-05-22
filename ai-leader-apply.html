@@ -1,0 +1,1801 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>시민 리더 양성과정 신청 | 화성 AI 리더 허브</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #0057B8;
+    --primary-dark: #003E8C;
+    --primary-light: #E6F1FB;
+    --primary-mid: #1D6FD4;
+    --accent: #00C49A;
+    --accent-dark: #007A5E;
+    --accent-light: #E1F5EE;
+    --text-main: #1A1A2E;
+    --text-sub: #4A4A6A;
+    --text-muted: #7A7A9A;
+    --border: #E0E4F0;
+    --border-focus: #0057B8;
+    --bg-page: #F4F6FB;
+    --bg-card: #FFFFFF;
+    --bg-surface: #F8F9FD;
+    --badge-new: #FF4B6E;
+    --shadow-card: 0 2px 16px rgba(0,87,184,0.08);
+    --shadow-hover: 0 8px 32px rgba(0,87,184,0.15);
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-lg: 20px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg-page);
+    color: var(--text-main);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  .nav {
+    background: #fff;
+    border-bottom: 1.5px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    height: 64px;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    margin-right: 36px;
+  }
+  .nav-logo-badge {
+    background: var(--primary);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 3px 7px;
+    border-radius: 4px;
+    line-height: 1;
+    letter-spacing: 0.5px;
+  }
+  .nav-logo-text {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: -0.3px;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex: 1;
+  }
+  .nav-links a {
+    font-size: 14px;
+    color: var(--text-sub);
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    transition: all 0.15s;
+    font-weight: 500;
+  }
+  .nav-links a:hover { background: var(--primary-light); color: var(--primary); }
+  .nav-links a.active { color: var(--primary); background: var(--primary-light); }
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .btn-nav-login {
+    font-size: 13px;
+    color: var(--text-sub);
+    background: none;
+    border: 1.5px solid var(--border);
+    padding: 7px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 500;
+    transition: all 0.15s;
+    text-decoration: none;
+  }
+  .btn-nav-login:hover { border-color: var(--primary); color: var(--primary); }
+  .btn-nav-start {
+    font-size: 13px;
+    color: #fff;
+    background: var(--primary);
+    border: none;
+    padding: 8px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    transition: all 0.15s;
+    text-decoration: none;
+  }
+  .btn-nav-start:hover { background: var(--primary-dark); }
+
+  /* ── TICKER ── */
+  .ticker {
+    background: var(--primary-dark);
+    color: rgba(255,255,255,0.9);
+    font-size: 12.5px;
+    padding: 7px 0;
+    overflow: hidden;
+  }
+  .ticker-inner {
+    display: flex;
+    gap: 0;
+    white-space: nowrap;
+    animation: ticker-slide 30s linear infinite;
+  }
+  .ticker-item {
+    padding: 0 36px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .ticker-badge {
+    background: var(--badge-new);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+  @keyframes ticker-slide {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #0046A0 0%, #003580 40%, #001F5C 100%);
+    padding: 72px 24px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(0,196,154,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 10%;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(100,170,255,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.9);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .hero-eyebrow-dot {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: blink 1.5s ease-in-out infinite;
+  }
+  @keyframes blink {
+    0%,100% { opacity: 1; } 50% { opacity: 0.3; }
+  }
+  .hero h1 {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+    letter-spacing: -1px;
+    margin-bottom: 18px;
+  }
+  .hero h1 .accent { color: var(--accent); }
+  .hero-desc {
+    font-size: 17px;
+    color: rgba(255,255,255,0.75);
+    max-width: 580px;
+    margin-bottom: 36px;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+  .hero-cta {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
+    letter-spacing: -0.2px;
+  }
+  .btn-primary:hover { background: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,196,154,0.35); }
+  .btn-ghost {
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.9);
+    border: 1.5px solid rgba(255,255,255,0.25);
+    padding: 13px 28px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.18); }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 56px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+  }
+  .hero-stat {
+    text-align: center;
+  }
+  .hero-stat-num {
+    font-size: 28px;
+    font-weight: 800;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    display: block;
+    letter-spacing: -0.5px;
+  }
+  .hero-stat-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    font-weight: 400;
+    margin-top: 3px;
+    display: block;
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 56px 24px 80px;
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 40px;
+    align-items: start;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .section-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--text-main);
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .section-desc {
+    font-size: 14.5px;
+    color: var(--text-sub);
+    line-height: 1.6;
+  }
+
+  /* ── STEP INDICATOR ── */
+  .step-bar {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 36px;
+  }
+  .step-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+  }
+  .step-item:last-child { flex: 0; }
+  .step-circle {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--border);
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s;
+    font-family: 'Inter', sans-serif;
+  }
+  .step-item.active .step-circle {
+    background: var(--primary);
+    color: #fff;
+    box-shadow: 0 0 0 4px var(--primary-light);
+  }
+  .step-item.done .step-circle {
+    background: var(--accent);
+    color: #fff;
+  }
+  .step-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+  .step-item.active .step-label { color: var(--primary); }
+  .step-item.done .step-label { color: var(--accent-dark); }
+  .step-line {
+    flex: 1;
+    height: 2px;
+    background: var(--border);
+    margin: 0 8px;
+    border-radius: 2px;
+    transition: background 0.3s;
+  }
+  .step-line.done { background: var(--accent); }
+
+  /* ── FORM CARD ── */
+  .form-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    border: 1.5px solid var(--border);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+  }
+  .form-card-header {
+    padding: 28px 32px 20px;
+    border-bottom: 1.5px solid var(--bg-surface);
+    background: var(--bg-surface);
+  }
+  .form-card-header h2 {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 4px;
+    letter-spacing: -0.3px;
+  }
+  .form-card-header p {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .form-body {
+    padding: 32px;
+  }
+
+  /* ── COURSE SELECTION ── */
+  .course-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .course-card {
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    background: #fff;
+  }
+  .course-card:hover { border-color: var(--primary); box-shadow: var(--shadow-hover); }
+  .course-card.selected {
+    border-color: var(--primary);
+    background: var(--primary-light);
+  }
+  .course-card-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    letter-spacing: 0.3px;
+  }
+  .badge-step1 { background: #E1F5EE; color: #007A5E; }
+  .badge-step2 { background: var(--primary-light); color: var(--primary); }
+  .badge-step3 { background: #FFF3E0; color: #E65100; }
+  .badge-hot { background: #FFEBEE; color: #C62828; }
+  .course-card h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 6px;
+    letter-spacing: -0.2px;
+  }
+  .course-card p {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .course-card-info {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .course-info-tag {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: var(--text-sub);
+  }
+  .course-info-icon { font-size: 13px; }
+  .course-check {
+    position: absolute;
+    top: 14px; right: 14px;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  .course-card.selected .course-check {
+    background: var(--primary);
+    border-color: var(--primary);
+  }
+  .course-check::after {
+    content: '';
+    width: 5px; height: 9px;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(45deg) translateY(-1px);
+    display: none;
+  }
+  .course-card.selected .course-check::after { display: block; }
+
+  /* ── FORM FIELDS ── */
+  .form-section {
+    margin-bottom: 28px;
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .form-group {
+    margin-bottom: 18px;
+  }
+  .form-group:last-child { margin-bottom: 0; }
+  .form-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-sub);
+    margin-bottom: 7px;
+    letter-spacing: -0.1px;
+  }
+  .form-label .required {
+    color: var(--badge-new);
+    margin-left: 3px;
+  }
+  .form-label .optional {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--text-muted);
+    margin-left: 4px;
+  }
+  .form-input, .form-select, .form-textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    color: var(--text-main);
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #fff;
+    transition: all 0.15s;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .form-input::placeholder { color: var(--text-muted); }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0,87,184,0.1);
+  }
+  .form-select {
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%234A4A6A' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+  .form-textarea {
+    resize: vertical;
+    min-height: 90px;
+    line-height: 1.6;
+  }
+  .form-hint {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    margin-top: 5px;
+    line-height: 1.5;
+  }
+  .form-divider {
+    border: none;
+    border-top: 1.5px solid var(--bg-surface);
+    margin: 28px -32px;
+  }
+
+  /* ── SCHEDULE PICKER ── */
+  .schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .schedule-btn {
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 11px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #fff;
+  }
+  .schedule-btn:hover { border-color: var(--primary); background: var(--primary-light); }
+  .schedule-btn.selected {
+    border-color: var(--primary);
+    background: var(--primary-light);
+  }
+  .schedule-btn-date {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-main);
+    display: block;
+  }
+  .schedule-btn-time {
+    font-size: 11px;
+    color: var(--text-muted);
+    display: block;
+    margin-top: 2px;
+  }
+  .schedule-btn-seats {
+    font-size: 10px;
+    font-weight: 600;
+    margin-top: 6px;
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .seats-ok { background: #E1F5EE; color: #007A5E; }
+  .seats-low { background: #FFF3E0; color: #E65100; }
+  .seats-full { background: #FFEBEE; color: #C62828; }
+
+  /* ── AGREE ── */
+  .agree-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+    background: #fff;
+  }
+  .agree-item:hover { border-color: var(--primary); }
+  .agree-item input[type="checkbox"] {
+    width: 17px; height: 17px;
+    accent-color: var(--primary);
+    flex-shrink: 0;
+    margin-top: 1px;
+    cursor: pointer;
+  }
+  .agree-item-text { flex: 1; }
+  .agree-item-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-sub);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .agree-required {
+    font-size: 10px;
+    font-weight: 700;
+    background: #FFEBEE;
+    color: #C62828;
+    padding: 1px 6px;
+    border-radius: 3px;
+  }
+  .agree-optional-badge {
+    font-size: 10px;
+    font-weight: 600;
+    background: var(--bg-surface);
+    color: var(--text-muted);
+    padding: 1px 6px;
+    border-radius: 3px;
+  }
+  .agree-item-desc {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    margin-top: 3px;
+    line-height: 1.5;
+  }
+  .agree-all {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    background: var(--primary-light);
+    border-radius: var(--radius-sm);
+    margin-bottom: 14px;
+    cursor: pointer;
+  }
+  .agree-all input[type="checkbox"] {
+    width: 18px; height: 18px;
+    accent-color: var(--primary);
+    cursor: pointer;
+  }
+  .agree-all-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary);
+    cursor: pointer;
+  }
+
+  /* ── SUBMIT BUTTON ── */
+  .btn-submit {
+    width: 100%;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    padding: 16px;
+    border-radius: var(--radius);
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif;
+    transition: all 0.2s;
+    letter-spacing: -0.3px;
+    margin-top: 10px;
+  }
+  .btn-submit:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,87,184,0.25); }
+  .btn-submit:active { transform: translateY(0); }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: sticky;
+    top: 84px;
+  }
+  .info-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    border: 1.5px solid var(--border);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+  }
+  .info-card-header {
+    padding: 18px 22px 14px;
+    border-bottom: 1.5px solid var(--bg-surface);
+  }
+  .info-card-header h3 {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--text-main);
+    letter-spacing: -0.3px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .info-card-icon {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+  .icon-blue { background: var(--primary-light); }
+  .icon-green { background: var(--accent-light); }
+  .icon-orange { background: #FFF3E0; }
+  .info-card-body { padding: 16px 22px 20px; }
+
+  .roadmap-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .roadmap-item {
+    display: flex;
+    gap: 14px;
+    align-items: stretch;
+    padding: 0;
+  }
+  .roadmap-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .roadmap-dot {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+    font-family: 'Inter', sans-serif;
+    flex-shrink: 0;
+    color: #fff;
+  }
+  .dot-1 { background: var(--accent); }
+  .dot-2 { background: var(--primary); }
+  .dot-3 { background: #FF8C42; }
+  .roadmap-line {
+    width: 2px;
+    background: var(--border);
+    flex: 1;
+    margin: 4px 0;
+    min-height: 16px;
+  }
+  .roadmap-right {
+    padding-bottom: 18px;
+    flex: 1;
+    padding-top: 4px;
+  }
+  .roadmap-right h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 2px;
+    letter-spacing: -0.2px;
+  }
+  .roadmap-right p {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .notice-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .notice-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--bg-surface);
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+  .notice-item:last-child { border-bottom: none; }
+  .notice-item:hover .notice-title { color: var(--primary); }
+  .notice-type {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .type-공지 { background: var(--primary-light); color: var(--primary); }
+  .type-교육 { background: var(--accent-light); color: var(--accent-dark); }
+  .type-소식 { background: #FFF3E0; color: #E65100; }
+  .notice-title {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--text-sub);
+    line-height: 1.5;
+    transition: color 0.15s;
+  }
+  .notice-badge-new {
+    display: inline-block;
+    background: var(--badge-new);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-left: 4px;
+    vertical-align: middle;
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .contact-icon {
+    width: 32px; height: 32px;
+    background: var(--bg-surface);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+  .contact-text {
+    font-size: 13px;
+    color: var(--text-sub);
+    line-height: 1.4;
+  }
+  .contact-text strong {
+    color: var(--text-main);
+    font-weight: 600;
+    display: block;
+    font-size: 12px;
+  }
+
+  /* ── SUCCESS MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: #fff;
+    border-radius: var(--radius-lg);
+    padding: 48px 40px;
+    max-width: 480px;
+    width: 90%;
+    text-align: center;
+    animation: modal-up 0.3s ease;
+  }
+  @keyframes modal-up {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  .modal-icon {
+    width: 72px; height: 72px;
+    background: var(--accent-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin: 0 auto 20px;
+  }
+  .modal h2 {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+  }
+  .modal-desc {
+    font-size: 14px;
+    color: var(--text-sub);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+  .modal-number {
+    background: var(--primary-light);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 24px;
+  }
+  .modal-number p {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .modal-number strong {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--primary);
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 1px;
+  }
+  .btn-modal-close {
+    width: 100%;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    padding: 14px;
+    border-radius: var(--radius);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: #0A1628;
+    color: rgba(255,255,255,0.6);
+    padding: 48px 24px 32px;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+  }
+  .footer-brand-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .footer-brand-badge {
+    background: var(--primary);
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 4px;
+    color: #fff;
+  }
+  .footer-brand-desc {
+    font-size: 12.5px;
+    line-height: 1.7;
+    margin-bottom: 16px;
+    color: rgba(255,255,255,0.45);
+  }
+  .footer-contact {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.8;
+  }
+  .footer-col h4 {
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 14px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li {
+    margin-bottom: 8px;
+  }
+  .footer-col ul li a {
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.45);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .footer-col ul li a:hover { color: rgba(255,255,255,0.85); }
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 32px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* ── VALIDATION ── */
+  .form-input.error, .form-select.error { border-color: var(--badge-new); }
+  .form-error-msg {
+    font-size: 11.5px;
+    color: var(--badge-new);
+    margin-top: 4px;
+    display: none;
+  }
+  .form-error-msg.show { display: block; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .main { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+    .course-grid { grid-template-columns: 1fr; }
+    .schedule-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr; gap: 24px; }
+    .hero h1 { font-size: 28px; }
+    .form-body { padding: 20px; }
+    .form-card-header { padding: 20px 20px 14px; }
+    .form-divider { margin: 20px -20px; }
+    .schedule-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <span class="nav-logo-badge">화성시</span>
+      <span class="nav-logo-text">화성 AI 리더 허브</span>
+    </a>
+    <div class="nav-links">
+      <a href="#">플랫폼 소개</a>
+      <a href="#" class="active">교육 프로그램</a>
+      <a href="#">강사 찾기</a>
+      <a href="#">활동 현황</a>
+      <a href="#">알림마당</a>
+    </div>
+    <div class="nav-actions">
+      <a href="#" class="btn-nav-login">로그인</a>
+      <a href="#" class="btn-nav-start">시작하기 →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner" id="ticker">
+    <span class="ticker-item"><span class="ticker-badge">NEW</span> 공지 | 2026년 하반기 AI 시민 리더 2기 모집이 시작됩니다.</span>
+    <span class="ticker-item"><span class="ticker-badge">NEW</span> 교육 | 5월 AI 기초 과정 수강생을 모집합니다. 선착순 40명.</span>
+    <span class="ticker-item"><span class="ticker-badge">NEW</span> 소식 | AI 혁신센터 강사 파견 서비스 동탄·봉담 확대 운영.</span>
+    <span class="ticker-item"><span class="ticker-badge">NEW</span> 공지 | 2026 화성시 AI랩 우수 수강생 장학금 신청 안내.</span>
+    <span class="ticker-item"><span class="ticker-badge">NEW</span> 공지 | 2026년 하반기 AI 시민 리더 2기 모집이 시작됩니다.</span>
+    <span class="ticker-item"><span class="ticker-badge">NEW</span> 교육 | 5월 AI 기초 과정 수강생을 모집합니다. 선착순 40명.</span>
+    <span class="ticker-item"><span class="ticker-badge">NEW</span> 소식 | AI 혁신센터 강사 파견 서비스 동탄·봉담 확대 운영.</span>
+    <span class="ticker-item"><span class="ticker-badge">NEW</span> 공지 | 2026 화성시 AI랩 우수 수강생 장학금 신청 안내.</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-dot"></span>
+      2026 AI 혁신학교 AI랩 운영 중
+    </div>
+    <h1>AI 시민 리더,<br>지금 <span class="accent">신청</span>하세요</h1>
+    <p class="hero-desc">화성특례시 AI 혁신학교 AI랩이 운영하는 시민 리더 양성과정에 참여하세요. 배우고, 가르치고, 지역을 바꾸는 여정이 시작됩니다.</p>
+    <div class="hero-cta">
+      <a href="#apply-form" class="btn-primary">지금 신청하기 →</a>
+      <a href="#" class="btn-ghost">교육 과정 보기</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num">247</span>
+        <span class="hero-stat-label">활동 중인 시민 리더</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">1,842</span>
+        <span class="hero-stat-label">누적 수강생</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">312</span>
+        <span class="hero-stat-label">누적 강의 횟수</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">98%</span>
+        <span class="hero-stat-label">수강생 만족도</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<div class="main" id="apply-form">
+
+  <!-- FORM SECTION -->
+  <div>
+    <!-- Step Bar -->
+    <div class="step-bar" id="stepBar">
+      <div class="step-item active" id="step1-indicator">
+        <div class="step-circle">1</div>
+        <span class="step-label">과정 선택</span>
+      </div>
+      <div class="step-line" id="line-1-2"></div>
+      <div class="step-item" id="step2-indicator">
+        <div class="step-circle">2</div>
+        <span class="step-label">신청자 정보</span>
+      </div>
+      <div class="step-line" id="line-2-3"></div>
+      <div class="step-item" id="step3-indicator">
+        <div class="step-circle">3</div>
+        <span class="step-label">일정·동의</span>
+      </div>
+      <div class="step-line" id="line-3-4"></div>
+      <div class="step-item" id="step4-indicator">
+        <div class="step-circle">4</div>
+        <span class="step-label">신청 완료</span>
+      </div>
+    </div>
+
+    <!-- STEP 1: 과정 선택 -->
+    <div id="step1" class="form-card">
+      <div class="form-card-header">
+        <h2>🎓 교육 과정 선택</h2>
+        <p>참여하실 AI 시민 리더 양성과정을 선택해주세요</p>
+      </div>
+      <div class="form-body">
+        <div class="course-grid">
+          <div class="course-card" onclick="selectCourse(this, 'AI 기초 과정')" data-course="step1">
+            <div class="course-check"></div>
+            <span class="course-card-badge badge-step1">STEP 1</span>
+            <h3>AI 기초 과정</h3>
+            <p>AI를 처음 접하는 시민을 위한 입문 과정. 생성형 AI의 개념과 일상 활용법을 학습합니다.</p>
+            <div class="course-card-info">
+              <span class="course-info-tag"><span class="course-info-icon">📅</span> 8주 과정</span>
+              <span class="course-info-tag"><span class="course-info-icon">👥</span> 20명 정원</span>
+              <span class="course-info-tag"><span class="course-info-icon">💰</span> 무료</span>
+            </div>
+          </div>
+          <div class="course-card selected" onclick="selectCourse(this, 'AI 시민 리더 과정')" data-course="step2">
+            <div class="course-check"></div>
+            <span class="course-card-badge badge-step2">STEP 2</span>
+            <h3>AI 시민 리더 과정 <span style="font-size:10px;color:#C62828;background:#FFEBEE;padding:1px 6px;border-radius:3px;font-weight:700;">인기</span></h3>
+            <p>AI 기초 수료자 또는 AI 활용 경험자 대상. 지역사회 AI 교육 강사 자격 취득 과정.</p>
+            <div class="course-card-info">
+              <span class="course-info-tag"><span class="course-info-icon">📅</span> 12주 과정</span>
+              <span class="course-info-tag"><span class="course-info-icon">👥</span> 15명 정원</span>
+              <span class="course-info-tag"><span class="course-info-icon">💰</span> 무료</span>
+            </div>
+          </div>
+          <div class="course-card" onclick="selectCourse(this, '기업·기관 AI 교육')" data-course="step3">
+            <div class="course-check"></div>
+            <span class="course-card-badge badge-step3">STEP 3</span>
+            <h3>기업·기관 AI 교육</h3>
+            <p>기업 및 공공기관 임직원 대상 맞춤형 AI 실무 교육. 업무 자동화 및 AI 도구 활용.</p>
+            <div class="course-card-info">
+              <span class="course-info-tag"><span class="course-info-icon">📅</span> 4주 과정</span>
+              <span class="course-info-tag"><span class="course-info-icon">👥</span> 30명 정원</span>
+              <span class="course-info-tag"><span class="course-info-icon">🏢</span> 출강 가능</span>
+            </div>
+          </div>
+          <div class="course-card" onclick="selectCourse(this, '강사 파견 요청')" data-course="dispatch">
+            <div class="course-check"></div>
+            <span class="course-card-badge badge-hot">파견</span>
+            <h3>강사 파견 요청</h3>
+            <p>우리 기관·단체로 AI 시민 리더 강사를 파견 요청하실 수 있습니다. 맞춤 일정 협의.</p>
+            <div class="course-card-info">
+              <span class="course-info-tag"><span class="course-info-icon">📍</span> 동탄·봉담 확대</span>
+              <span class="course-info-tag"><span class="course-info-icon">📞</span> 사전 협의</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align:right;">
+          <button class="btn-submit" style="width:auto;padding:13px 40px;font-size:14px;" onclick="goStep(2)">다음 단계 → 신청자 정보</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: 신청자 정보 -->
+    <div id="step2" class="form-card" style="display:none;">
+      <div class="form-card-header">
+        <h2>👤 신청자 정보 입력</h2>
+        <p>정확한 정보를 입력해주세요. 수강 확인 및 안내에 사용됩니다.</p>
+      </div>
+      <div class="form-body">
+        <div class="form-section">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">이름 <span class="required">*</span></label>
+              <input type="text" class="form-input" id="name" placeholder="홍길동">
+              <p class="form-error-msg" id="name-err">이름을 입력해주세요</p>
+            </div>
+            <div class="form-group">
+              <label class="form-label">생년월일 <span class="required">*</span></label>
+              <input type="text" class="form-input" id="birth" placeholder="예) 19900101">
+              <p class="form-error-msg" id="birth-err">생년월일을 입력해주세요</p>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">연락처 <span class="required">*</span></label>
+              <input type="tel" class="form-input" id="phone" placeholder="010-0000-0000">
+              <p class="form-error-msg" id="phone-err">연락처를 입력해주세요</p>
+            </div>
+            <div class="form-group">
+              <label class="form-label">이메일 <span class="required">*</span></label>
+              <input type="email" class="form-input" id="email" placeholder="example@email.com">
+              <p class="form-error-msg" id="email-err">이메일을 입력해주세요</p>
+            </div>
+          </div>
+        </div>
+
+        <hr class="form-divider">
+
+        <div class="form-section">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">거주 지역 <span class="required">*</span></label>
+              <select class="form-select" id="region">
+                <option value="">지역 선택</option>
+                <option>동탄1동</option>
+                <option>동탄2동</option>
+                <option>동탄3동</option>
+                <option>동탄4동</option>
+                <option>봉담읍</option>
+                <option>향남읍</option>
+                <option>남양읍</option>
+                <option>비봉면</option>
+                <option>마도면</option>
+                <option>송산면</option>
+                <option>서신면</option>
+                <option>팔탄면</option>
+                <option>장안면</option>
+                <option>우정읍</option>
+                <option>기타</option>
+              </select>
+              <p class="form-error-msg" id="region-err">지역을 선택해주세요</p>
+            </div>
+            <div class="form-group">
+              <label class="form-label">직업·소속 <span class="required">*</span></label>
+              <select class="form-select" id="job">
+                <option value="">직업 선택</option>
+                <option>직장인</option>
+                <option>자영업자·사업자</option>
+                <option>공무원</option>
+                <option>교직원</option>
+                <option>주부</option>
+                <option>학생</option>
+                <option>은퇴·무직</option>
+                <option>기관·단체 소속</option>
+                <option>기타</option>
+              </select>
+              <p class="form-error-msg" id="job-err">직업을 선택해주세요</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">소속 기관·단체명 <span class="optional">(선택)</span></label>
+            <input type="text" class="form-input" id="org" placeholder="예) 화성시청, ○○학교, ○○기업 등">
+          </div>
+          <div class="form-group">
+            <label class="form-label">AI 활용 경험 수준 <span class="required">*</span></label>
+            <select class="form-select" id="level">
+              <option value="">경험 수준 선택</option>
+              <option>전혀 없음 (처음 접함)</option>
+              <option>ChatGPT 등 기본 사용 경험</option>
+              <option>업무·생활에 AI 도구 활용 중</option>
+              <option>AI 교육 수강 경험 있음</option>
+              <option>AI 관련 업무·연구 종사</option>
+            </select>
+            <p class="form-error-msg" id="level-err">경험 수준을 선택해주세요</p>
+          </div>
+        </div>
+
+        <hr class="form-divider">
+
+        <div class="form-section">
+          <div class="form-group">
+            <label class="form-label">지원 동기 <span class="required">*</span></label>
+            <textarea class="form-textarea" id="motivation" placeholder="이 과정에 참여하고 싶은 이유, 배우고 싶은 것, 향후 활동 계획 등을 자유롭게 작성해주세요. (100자 이상)" style="min-height:110px;"></textarea>
+            <p class="form-hint">※ 성의 있는 지원 동기는 선발에 유리하게 반영될 수 있습니다.</p>
+            <p class="form-error-msg" id="motivation-err">지원 동기를 입력해주세요 (100자 이상)</p>
+          </div>
+          <div class="form-group">
+            <label class="form-label">지인 추천인 <span class="optional">(선택)</span></label>
+            <input type="text" class="form-input" id="referrer" placeholder="추천한 분의 이름을 입력해주세요">
+          </div>
+        </div>
+
+        <div style="display:flex;gap:12px;justify-content:space-between;margin-top:4px;">
+          <button class="btn-submit" style="width:auto;padding:13px 32px;font-size:14px;background:#fff;color:var(--primary);border:1.5px solid var(--primary);" onclick="goStep(1)">← 이전</button>
+          <button class="btn-submit" style="width:auto;padding:13px 40px;font-size:14px;" onclick="goStep(3)">다음 단계 → 일정 선택</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: 일정·동의 -->
+    <div id="step3" class="form-card" style="display:none;">
+      <div class="form-card-header">
+        <h2>📅 교육 일정 선택 및 동의</h2>
+        <p>원하시는 교육 일정을 선택하고 약관에 동의해주세요</p>
+      </div>
+      <div class="form-body">
+        <div class="form-section">
+          <label class="form-label" style="margin-bottom:14px;">교육 일정 선택 <span class="required">*</span></label>
+          <div class="schedule-grid" id="scheduleGrid">
+            <div class="schedule-btn" onclick="selectSchedule(this)">
+              <span class="schedule-btn-date">6월 2일 (월)</span>
+              <span class="schedule-btn-time">오전 10:00 ~ 12:00</span>
+              <span class="schedule-btn-seats seats-ok">잔여 8석</span>
+            </div>
+            <div class="schedule-btn" onclick="selectSchedule(this)">
+              <span class="schedule-btn-date">6월 2일 (월)</span>
+              <span class="schedule-btn-time">오후 2:00 ~ 4:00</span>
+              <span class="schedule-btn-seats seats-ok">잔여 5석</span>
+            </div>
+            <div class="schedule-btn" onclick="selectSchedule(this)">
+              <span class="schedule-btn-date">6월 4일 (수)</span>
+              <span class="schedule-btn-time">오전 10:00 ~ 12:00</span>
+              <span class="schedule-btn-seats seats-low">잔여 2석</span>
+            </div>
+            <div class="schedule-btn" onclick="selectSchedule(this)">
+              <span class="schedule-btn-date">6월 4일 (수)</span>
+              <span class="schedule-btn-time">오후 7:00 ~ 9:00</span>
+              <span class="schedule-btn-seats seats-ok">잔여 10석</span>
+            </div>
+            <div class="schedule-btn" onclick="selectSchedule(this)">
+              <span class="schedule-btn-date">6월 7일 (토)</span>
+              <span class="schedule-btn-time">오전 10:00 ~ 12:00</span>
+              <span class="schedule-btn-seats seats-low">잔여 1석</span>
+            </div>
+            <div class="schedule-btn" onclick="selectSchedule(this)" style="opacity:0.5;pointer-events:none;">
+              <span class="schedule-btn-date">6월 9일 (월)</span>
+              <span class="schedule-btn-time">오전 10:00 ~ 12:00</span>
+              <span class="schedule-btn-seats seats-full">마감</span>
+            </div>
+          </div>
+          <p class="form-hint" style="margin-top:10px;">※ 교육 장소: AI 혁신센터 본원 (스마트통합운영센터 4층)</p>
+          <p class="form-error-msg show" id="schedule-err" style="display:none;">교육 일정을 선택해주세요</p>
+        </div>
+
+        <hr class="form-divider">
+
+        <div class="form-section">
+          <div class="form-group">
+            <label class="form-label">특이사항 <span class="optional">(선택)</span></label>
+            <textarea class="form-textarea" id="note" placeholder="알레르기, 거동 불편, 기타 교육 참여에 필요한 사항을 입력해주세요."></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">정보 입수 경로 <span class="optional">(선택)</span></label>
+            <select class="form-select" id="source">
+              <option value="">선택</option>
+              <option>화성시 공식 홈페이지</option>
+              <option>화성시 SNS (인스타그램·페이스북)</option>
+              <option>지인 소개</option>
+              <option>현수막·포스터</option>
+              <option>주민센터 안내</option>
+              <option>기타</option>
+            </select>
+          </div>
+        </div>
+
+        <hr class="form-divider">
+
+        <div class="form-section">
+          <label class="form-label" style="margin-bottom:14px;">약관 동의 <span class="required">*</span></label>
+
+          <div class="agree-all" onclick="toggleAll()">
+            <input type="checkbox" id="agree-all">
+            <label class="agree-all-label" for="agree-all">전체 동의합니다</label>
+          </div>
+
+          <div class="agree-item" onclick="toggleCheck('agree1')">
+            <input type="checkbox" id="agree1">
+            <div class="agree-item-text">
+              <div class="agree-item-title">
+                이용 약관 동의
+                <span class="agree-required">필수</span>
+              </div>
+              <p class="agree-item-desc">화성 AI 리더 허브 이용약관에 동의합니다. 교육 참여 중 취득한 내용은 외부 무단 유포를 금지합니다.</p>
+            </div>
+          </div>
+
+          <div class="agree-item" onclick="toggleCheck('agree2')">
+            <input type="checkbox" id="agree2">
+            <div class="agree-item-text">
+              <div class="agree-item-title">
+                개인정보 수집·이용 동의
+                <span class="agree-required">필수</span>
+              </div>
+              <p class="agree-item-desc">교육 운영 목적으로 이름, 연락처, 이메일 등 개인정보를 수집·이용하는 것에 동의합니다. 수집된 정보는 교육 종료 후 3년간 보관됩니다.</p>
+            </div>
+          </div>
+
+          <div class="agree-item" onclick="toggleCheck('agree3')">
+            <input type="checkbox" id="agree3">
+            <div class="agree-item-text">
+              <div class="agree-item-title">
+                교육 출석·수료 기준 확인
+                <span class="agree-required">필수</span>
+              </div>
+              <p class="agree-item-desc">전체 교육 시간의 80% 이상 출석 시 수료증이 발급되며, 미달 시 수료 처리가 불가함을 확인합니다.</p>
+            </div>
+          </div>
+
+          <div class="agree-item" onclick="toggleCheck('agree4')">
+            <input type="checkbox" id="agree4">
+            <div class="agree-item-text">
+              <div class="agree-item-title">
+                사진·영상 촬영 및 활용 동의
+                <span class="agree-optional-badge">선택</span>
+              </div>
+              <p class="agree-item-desc">교육 과정 중 촬영된 사진·영상이 화성시 공식 홍보물에 활용될 수 있음에 동의합니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="form-error-msg" id="agree-err" style="display:none;margin-top:-10px;margin-bottom:10px;">필수 약관에 모두 동의해주세요</p>
+
+        <div style="display:flex;gap:12px;justify-content:space-between;margin-top:8px;">
+          <button class="btn-submit" style="width:auto;padding:13px 32px;font-size:14px;background:#fff;color:var(--primary);border:1.5px solid var(--primary);" onclick="goStep(2)">← 이전</button>
+          <button class="btn-submit" style="width:auto;padding:14px 48px;" onclick="submitForm()">신청서 제출하기 ✓</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <!-- 로드맵 -->
+    <div class="info-card">
+      <div class="info-card-header">
+        <h3>
+          <div class="info-card-icon icon-blue">🗺️</div>
+          AI 시민 리더 로드맵
+        </h3>
+      </div>
+      <div class="info-card-body">
+        <div class="roadmap-steps">
+          <div class="roadmap-item">
+            <div class="roadmap-left">
+              <div class="roadmap-dot dot-1">1</div>
+              <div class="roadmap-line"></div>
+            </div>
+            <div class="roadmap-right">
+              <h4>STEP 1 · AI 기초 과정</h4>
+              <p>생성형 AI 개념, ChatGPT·Gemini 활용법, 일상 속 AI 도구 실습. 8주·40시간.</p>
+            </div>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-left">
+              <div class="roadmap-dot dot-2">2</div>
+              <div class="roadmap-line"></div>
+            </div>
+            <div class="roadmap-right">
+              <h4>STEP 2 · 시민 리더 양성</h4>
+              <p>AI 교육 강사 역량 개발, 커리큘럼 설계, 모의 강의 실습. 12주·60시간.</p>
+            </div>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-left">
+              <div class="roadmap-dot dot-3">3</div>
+            </div>
+            <div class="roadmap-right" style="padding-bottom:0;">
+              <h4>STEP 3 · AI 시민 리더 활동</h4>
+              <p>지역 기관·기업 출강, 임팩트 대시보드 관리, 우수 리더 장학금 지원.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 알림마당 -->
+    <div class="info-card">
+      <div class="info-card-header">
+        <h3>
+          <div class="info-card-icon icon-green">📋</div>
+          알림마당
+        </h3>
+      </div>
+      <div class="info-card-body" style="padding-top:0;">
+        <div class="notice-list">
+          <a href="#" class="notice-item">
+            <span class="notice-type type-공지">공지</span>
+            <span class="notice-title">2026년 하반기 시민 리더 2기 모집 공고<span class="notice-badge-new">N</span></span>
+          </a>
+          <a href="#" class="notice-item">
+            <span class="notice-type type-교육">교육</span>
+            <span class="notice-title">5월 AI 기초 과정 수강생 모집<span class="notice-badge-new">N</span></span>
+          </a>
+          <a href="#" class="notice-item">
+            <span class="notice-type type-소식">소식</span>
+            <span class="notice-title">1기 수료식 성황리 개최</span>
+          </a>
+          <a href="#" class="notice-item">
+            <span class="notice-type type-공지">공지</span>
+            <span class="notice-title">AI 혁신센터 5월 운영 일정 안내</span>
+          </a>
+          <a href="#" class="notice-item">
+            <span class="notice-type type-교육">교육</span>
+            <span class="notice-title">강사 파견 서비스 동탄·봉담 확대</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 문의 -->
+    <div class="info-card">
+      <div class="info-card-header">
+        <h3>
+          <div class="info-card-icon icon-orange">📞</div>
+          문의 안내
+        </h3>
+      </div>
+      <div class="info-card-body">
+        <div class="contact-info">
+          <div class="contact-row">
+            <div class="contact-icon">📍</div>
+            <div class="contact-text">
+              <strong>교육 장소</strong>
+              AI 혁신센터 (스마트통합운영센터 4층)
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-icon">📞</div>
+            <div class="contact-text">
+              <strong>전화 문의</strong>
+              031-5189-1757 (AI스마트전략실)
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-icon">🕘</div>
+            <div class="contact-text">
+              <strong>운영 시간</strong>
+              평일 09:00 ~ 18:00 (주말·공휴일 제외)
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-icon">✉️</div>
+            <div class="contact-text">
+              <strong>이메일</strong>
+              ai.lab@hwaseong.go.kr
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand-name">
+        <span class="footer-brand-badge">화성시</span>
+        화성 AI 리더 허브
+      </div>
+      <p class="footer-brand-desc">화성특례시 AI 혁신학교 AI랩이 운영하는 시민 리더 양성 통합 관리 플랫폼입니다.</p>
+      <div class="footer-contact">
+        📍 AI 혁신센터 본원 — 스마트통합운영센터 4층<br>
+        📞 AI스마트전략실 031-5189-1757
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>플랫폼</h4>
+      <ul>
+        <li><a href="#">소개 및 비전</a></li>
+        <li><a href="#">운영 체계</a></li>
+        <li><a href="#">이용 약관</a></li>
+        <li><a href="#">개인정보처리방침</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>교육 프로그램</h4>
+      <ul>
+        <li><a href="#">STEP 1 · AI 기초</a></li>
+        <li><a href="#">STEP 2 · 시민 리더</a></li>
+        <li><a href="#">STEP 3 · 기업 교육</a></li>
+        <li><a href="#">강사 파견 신청</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>대시보드</h4>
+      <ul>
+        <li><a href="#">피교육자 (시민·기관)</a></li>
+        <li><a href="#">강사 (AI 시민 리더)</a></li>
+        <li><a href="#">운영자 (화성시)</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Hwaseong Special City. All rights reserved.</span>
+    <span>화성특례시 AI 시민 리더 양성 플랫폼</span>
+  </div>
+</footer>
+
+<!-- SUCCESS MODAL -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal">
+    <div class="modal-icon">✅</div>
+    <h2>신청이 완료되었습니다!</h2>
+    <p class="modal-desc">
+      AI 시민 리더 양성과정 신청이 정상적으로 접수되었습니다.<br>
+      빠른 시일 내에 입력하신 연락처로 결과를 안내드리겠습니다.
+    </p>
+    <div class="modal-number">
+      <p>신청 접수 번호</p>
+      <strong id="receiptNum">2026-0522-0847</strong>
+    </div>
+    <button class="btn-modal-close" onclick="closeModal()">확인</button>
+  </div>
+</div>
+
+<script>
+  // ── 과정 선택
+  let selectedCourse = 'AI 시민 리더 과정';
+  function selectCourse(el, name) {
+    document.querySelectorAll('.course-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedCourse = name;
+  }
+
+  // ── 일정 선택
+  let selectedSchedule = null;
+  function selectSchedule(el) {
+    document.querySelectorAll('.schedule-btn').forEach(b => b.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedSchedule = el;
+    document.getElementById('schedule-err').style.display = 'none';
+  }
+
+  // ── 약관
+  function toggleAll() {
+    const all = document.getElementById('agree-all');
+    const boxes = ['agree1','agree2','agree3','agree4'];
+    boxes.forEach(id => document.getElementById(id).checked = all.checked);
+  }
+  function toggleCheck(id) {
+    const el = document.getElementById(id);
+    el.checked = !el.checked;
+    const boxes = ['agree1','agree2','agree3','agree4'];
+    document.getElementById('agree-all').checked = boxes.every(i => document.getElementById(i).checked);
+  }
+
+  // ── 스텝 이동
+  function goStep(n) {
+    if (n === 2 && !validateStep1()) return;
+    if (n === 3 && !validateStep2()) return;
+
+    ['step1','step2','step3'].forEach((id, i) => {
+      document.getElementById(id).style.display = (i === n-1) ? 'block' : 'none';
+    });
+
+    ['step1-indicator','step2-indicator','step3-indicator','step4-indicator'].forEach((id, i) => {
+      const el = document.getElementById(id);
+      el.classList.remove('active','done');
+      if (i < n - 1) el.classList.add('done');
+      else if (i === n - 1) el.classList.add('active');
+    });
+
+    ['line-1-2','line-2-3','line-3-4'].forEach((id, i) => {
+      const el = document.getElementById(id);
+      el.classList.toggle('done', i < n - 1);
+    });
+
+    window.scrollTo({ top: document.getElementById('apply-form').offsetTop - 80, behavior: 'smooth' });
+  }
+
+  // ── 유효성 검사
+  function validateStep1() { return true; }
+  function validateStep2() {
+    let ok = true;
+    const fields = [
+      { id: 'name', err: 'name-err', msg: '이름을 입력해주세요' },
+      { id: 'birth', err: 'birth-err', msg: '생년월일을 입력해주세요' },
+      { id: 'phone', err: 'phone-err', msg: '연락처를 입력해주세요' },
+      { id: 'email', err: 'email-err', msg: '이메일을 입력해주세요' },
+      { id: 'region', err: 'region-err', msg: '거주 지역을 선택해주세요' },
+      { id: 'job', err: 'job-err', msg: '직업을 선택해주세요' },
+      { id: 'level', err: 'level-err', msg: 'AI 경험 수준을 선택해주세요' },
+    ];
+    fields.forEach(f => {
+      const el = document.getElementById(f.id);
+      const err = document.getElementById(f.err);
+      if (!el.value.trim()) {
+        el.classList.add('error');
+        err.classList.add('show');
+        err.style.display = 'block';
+        ok = false;
+      } else {
+        el.classList.remove('error');
+        err.classList.remove('show');
+        err.style.display = 'none';
+      }
+    });
+    const mot = document.getElementById('motivation');
+    const motErr = document.getElementById('motivation-err');
+    if (mot.value.trim().length < 30) {
+      mot.classList.add('error');
+      motErr.classList.add('show');
+      motErr.style.display = 'block';
+      ok = false;
+    } else {
+      mot.classList.remove('error');
+      motErr.style.display = 'none';
+    }
+    if (!ok) document.getElementById('step2').querySelector('.form-input.error, .form-select.error, .form-textarea.error')?.scrollIntoView({behavior:'smooth', block:'center'});
+    return ok;
+  }
+
+  // ── 제출
+  function submitForm() {
+    if (!selectedSchedule) {
+      const err = document.getElementById('schedule-err');
+      err.style.display = 'block';
+      return;
+    }
+    if (!document.getElementById('agree1').checked || !document.getElementById('agree2').checked || !document.getElementById('agree3').checked) {
+      const err = document.getElementById('agree-err');
+      err.style.display = 'block';
+      return;
+    }
+    const num = '2026-' + String(Math.floor(Math.random()*9000)+1000) + '-' + String(Math.floor(Math.random()*9000)+1000);
+    document.getElementById('receiptNum').textContent = num;
+    document.getElementById('successModal').classList.add('show');
+  }
+
+  function closeModal() {
+    document.getElementById('successModal').classList.remove('show');
+    goStep(1);
+    document.querySelectorAll('.form-input,.form-textarea').forEach(el => el.value = '');
+    document.querySelectorAll('.form-select').forEach(el => el.selectedIndex = 0);
+    document.querySelectorAll('input[type=checkbox]').forEach(el => el.checked = false);
+    selectSchedule && document.querySelectorAll('.schedule-btn').forEach(b => b.classList.remove('selected'));
+    selectedSchedule = null;
+  }
+
+  // 입력시 에러 해제
+  document.querySelectorAll('.form-input,.form-select,.form-textarea').forEach(el => {
+    el.addEventListener('input', () => {
+      el.classList.remove('error');
+      const err = document.getElementById(el.id + '-err');
+      if (err) err.style.display = 'none';
+    });
+  });
+</script>
+</body>
+</html>
