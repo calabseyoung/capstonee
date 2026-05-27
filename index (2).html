@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>화성 AI 시민리더 잇다(IT-DA)</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --org:#F47920;--ord:#C4600A;--orl:#FEF0E6;
+  --blu:#1A4FA0;--bld:#0F3275;--bll:#E8EEF8;
+  --grn:#10B981;--grl:#D1FAE5;--grd:#065F46;
+  --red:#EF4444;--rdl:#FEE2E2;
+  --bg:#F3F5F9;--sur:#fff;--bor:#DDE3EE;
+  --tx:#1A2740;--txs:#46566A;--txm:#8A97A8;
+  --sh:0 2px 16px rgba(26,47,80,.07);--shl:0 8px 36px rgba(26,47,80,.14);
+  --r:14px;--rs:8px;
+}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
+.view{display:none}.view.active{display:block}
+
+/* ── NAV ── */
+.nav{background:var(--blu);position:sticky;top:0;z-index:200}
+.nav-top{background:var(--org);padding:5px 0;text-align:center;font-size:11px;color:rgba(255,255,255,.9);font-weight:500}
+.nav-in{max-width:1120px;margin:0 auto;padding:0 24px;display:flex;align-items:center;height:62px}
+.logo{display:flex;align-items:center;gap:10px;cursor:pointer;margin-right:36px}
+.logo-ic{width:36px;height:36px;background:var(--org);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.logo-nm{font-size:14px;font-weight:800;color:#fff;line-height:1.2}
+.logo-sb{font-size:9px;color:rgba(255,255,255,.4);display:block}
+.nav-links{display:flex;gap:2px;flex:1}
+.nl{font-size:13px;color:rgba(255,255,255,.6);padding:7px 13px;border-radius:6px;cursor:pointer;border:none;background:none;font-family:inherit;transition:all .15s}
+.nl:hover,.nl.on{color:#fff;background:rgba(255,255,255,.12);font-weight:600}
+.nl.adm{color:rgba(255,200,100,.7)}
+.nav-right{display:flex;align-items:center;gap:9px}
+.btn-nl{font-size:12.5px;color:rgba(255,255,255,.75);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);padding:7px 15px;border-radius:6px;cursor:pointer;font-family:inherit}
+.btn-na{font-size:12.5px;color:#fff;background:var(--org);border:none;padding:7px 17px;border-radius:6px;cursor:pointer;font-family:inherit;font-weight:700}
+.nav-user{display:none;align-items:center;gap:9px}
+.nav-av{width:33px;height:33px;border-radius:50%;background:var(--org);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,.3)}
+.nav-un{font-size:13px;color:rgba(255,255,255,.85);font-weight:500}
+.nav-vb{display:none;align-items:center;gap:3px;background:rgba(16,185,129,.2);border:1px solid rgba(16,185,129,.4);color:#6EE7B7;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px}
+.btn-out{font-size:12px;color:rgba(255,255,255,.4);background:none;border:1px solid rgba(255,255,255,.18);padding:5px 11px;border-radius:6px;cursor:pointer;font-family:inherit}
+
+/* ── TICKER ── */
+.ticker{background:var(--bld);overflow:hidden;padding:7px 0}
+.tick-tr{display:flex;white-space:nowrap;animation:tick 34s linear infinite}
+.ti{display:inline-flex;align-items:center;gap:8px;padding:0 44px;font-size:12px;color:rgba(255,255,255,.7)}
+.ti-tg{background:var(--org);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,var(--blu),var(--bld) 55%,#091E50);padding:64px 24px 72px;position:relative;overflow:hidden}
+.hero-gd{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.05) 1.5px,transparent 1.5px);background-size:22px 22px}
+.hero-gl{position:absolute;top:-80px;right:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(244,121,32,.18) 0%,transparent 65%);border-radius:50%}
+.hero-in{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1fr 390px;gap:56px;align-items:center;position:relative;z-index:1}
+.hero-ey{display:inline-flex;align-items:center;gap:7px;background:rgba(244,121,32,.15);border:1px solid rgba(244,121,32,.3);color:#F89440;font-size:11px;font-weight:600;padding:5px 14px;border-radius:20px;margin-bottom:18px}
+.hero-dt{width:6px;height:6px;background:var(--org);border-radius:50%;animation:hdt 2s ease-in-out infinite}
+@keyframes hdt{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-size:clamp(26px,4vw,44px);font-weight:900;color:#fff;line-height:1.18;letter-spacing:-1px;margin-bottom:14px}
+.hero h1 em{font-style:normal;color:#F89440}
+.hero-dc{font-size:15px;color:rgba(255,255,255,.6);line-height:1.75;margin-bottom:28px;font-weight:300}
+.hero-cta{display:flex;gap:11px;flex-wrap:wrap}
+.btn-hp{background:var(--org);color:#fff;border:none;padding:13px 28px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.btn-hp:hover{background:var(--ord);transform:translateY(-2px)}
+.btn-hg{background:rgba(255,255,255,.07);color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.18);padding:12px 24px;border-radius:10px;font-size:15px;font-weight:500;cursor:pointer;font-family:inherit}
+.hcard{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.11);border-radius:var(--r);padding:24px}
+.hc-lb{font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:14px}
+.hc-gd{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:14px}
+.hc-st{background:rgba(255,255,255,.06);border-radius:9px;padding:12px;text-align:center}
+.hc-n{font-size:22px;font-weight:800;color:#fff;font-family:'Inter',sans-serif;display:block}
+.hc-n.og{color:#F89440}.hc-s{font-size:10px;color:rgba(255,255,255,.4);margin-top:2px;display:block}
+.hc-dv{border:none;border-top:1px solid rgba(255,255,255,.08);margin:12px 0}
+.fs{display:flex;flex-direction:column;gap:8px}
+.fs-i{display:flex;align-items:center;gap:9px}
+.fs-n{width:20px;height:20px;border-radius:50%;background:var(--org);color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Inter',sans-serif}
+.fs-t{font-size:12px;color:rgba(255,255,255,.65)}
+
+/* ── 섹션 공통 ── */
+.hw{max-width:1120px;margin:0 auto;padding:0 24px}
+.sh{text-align:center;margin-bottom:28px}
+.sl{display:inline-block;background:var(--orl);color:var(--ord);font-size:10.5px;font-weight:700;padding:4px 11px;border-radius:20px;margin-bottom:9px}
+.st{font-size:22px;font-weight:800;color:var(--tx);letter-spacing:-.4px;margin-bottom:5px}
+.sd{font-size:14px;color:var(--txm)}
+
+/* ── 모집 배너 ── */
+.rb{background:linear-gradient(135deg,#065F46,#047857);border-radius:var(--r);padding:18px 24px;margin:32px 0 0;display:flex;align-items:center;gap:18px;position:relative;overflow:hidden}
+.rb-l{position:relative;z-index:1;flex:1}
+.rb-bg{background:rgba(255,255,255,.2);color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;display:inline-block;margin-bottom:5px}
+.rb-tt{font-size:16px;font-weight:800;color:#fff;margin-bottom:2px}
+.rb-dc{font-size:12px;color:rgba(255,255,255,.75)}
+.rb-r{position:relative;z-index:1;text-align:center;flex-shrink:0}
+.rb-dd{font-size:26px;font-weight:900;color:#fff;font-family:'Inter',sans-serif;display:block}
+.rb-dl{font-size:11px;color:rgba(255,255,255,.6)}
+.btn-rb{background:#fff;color:var(--grd);border:none;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;margin-top:9px;display:block}
+
+/* ── 과정 카드 ── */
+.cg{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.cc{background:var(--sur);border-radius:var(--r);border:1.5px solid var(--bor);box-shadow:var(--sh);padding:22px;position:relative;overflow:hidden;transition:all .2s}
+.cc::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;border-radius:4px 4px 0 0}
+.ba::before{background:var(--org)}.bb::before{background:var(--blu)}.bc::before{background:#7C3AED}
+.cc:hover{transform:translateY(-4px);box-shadow:var(--shl)}
+.cc-ic{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px;margin-top:5px}
+.cia{background:var(--orl)}.cib{background:var(--bll)}.cic{background:#EDE9FE}
+.cc-st{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:3px}
+.ca{color:var(--ord)}.cb{color:var(--blu)}.ccc{color:#6D28D9}
+.cc-tt{font-size:15px;font-weight:800;color:var(--tx);margin-bottom:7px}
+.cc-dc{font-size:12.5px;color:var(--txm);line-height:1.65;margin-bottom:12px}
+.cc-tg{display:flex;gap:7px;flex-wrap:wrap}
+.ctg{font-size:11px;color:var(--txs);background:var(--bg);padding:3px 9px;border-radius:5px}
+
+/* ── 뉴스 ── */
+.ng{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+.nc{background:var(--sur);border-radius:var(--r);border:1px solid var(--bor);box-shadow:var(--sh);overflow:hidden;transition:all .2s;cursor:pointer}
+.nc:hover{transform:translateY(-3px);box-shadow:var(--shl)}
+.nc.ft{grid-column:span 2}
+.nth{width:100%;aspect-ratio:16/8;display:flex;align-items:center;justify-content:center;position:relative}
+.nc.ft .nth{aspect-ratio:16/7}
+.nb1{background:linear-gradient(135deg,#1A4FA0,#0F3275)}.nb2{background:linear-gradient(135deg,#F47920,#C4600A)}.nb3{background:linear-gradient(135deg,#7C3AED,#5B21B6)}
+.nth-lb{position:absolute;bottom:11px;left:13px;background:rgba(0,0,0,.45);color:#fff;font-size:10px;font-weight:700;padding:2px 9px;border-radius:20px}
+.nb{padding:17px 19px 19px}
+.ncat{display:inline-block;font-size:10px;font-weight:700;padding:2px 9px;border-radius:20px;margin-bottom:7px}
+.ncb{background:var(--bll);color:var(--blu)}.nco{background:var(--orl);color:var(--ord)}.ncp{background:#EDE9FE;color:#6D28D9}
+.nt{font-size:14px;font-weight:800;color:var(--tx);line-height:1.4;margin-bottom:5px}
+.nc.ft .nt{font-size:16.5px}
+.ne{font-size:12.5px;color:var(--txm);line-height:1.6;margin-bottom:11px}
+.nm{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--txm)}
+.nmd{width:3px;height:3px;background:var(--bor);border-radius:50%}
+
+/* ── 매칭 CTA ── */
+.mb{background:linear-gradient(135deg,var(--bld),#091E50 60%);border-radius:18px;padding:44px 48px;display:flex;align-items:center;justify-content:space-between;gap:28px;position:relative;overflow:hidden}
+.mb::before{content:'';position:absolute;top:-60px;right:-40px;width:260px;height:260px;background:radial-gradient(circle,rgba(244,121,32,.22) 0%,transparent 65%);border-radius:50%}
+.mb-l{position:relative;z-index:1}
+.mb-bg{display:inline-flex;align-items:center;gap:6px;background:rgba(244,121,32,.18);border:1px solid rgba(244,121,32,.35);color:#F89440;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:14px}
+.mb-tt{font-size:clamp(20px,3vw,28px);font-weight:900;color:#fff;line-height:1.2;letter-spacing:-.7px;margin-bottom:11px}
+.mb-tt em{font-style:normal;color:#F89440}
+.mb-dc{font-size:14px;color:rgba(255,255,255,.6);line-height:1.7}
+.mb-r{position:relative;z-index:1;flex-shrink:0}
+.mb-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:var(--r);padding:22px 26px;text-align:center;min-width:200px}
+.mb-ci{font-size:36px;margin-bottom:10px;display:block}
+.mb-ct{font-size:13px;font-weight:800;color:#fff;margin-bottom:5px}
+.mb-cd{font-size:12px;color:rgba(255,255,255,.5);margin-bottom:14px;line-height:1.5}
+.btn-match{background:var(--org);color:#fff;border:none;padding:11px 22px;border-radius:9px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit;width:100%}
+
+/* ── 로그인 / 회원가입 ── */
+.auth-pg{min-height:calc(100vh - 82px);display:flex;align-items:center;justify-content:center;padding:40px 24px;background:linear-gradient(160deg,var(--bll) 0%,var(--bg) 50%,var(--orl) 100%)}
+.auth-box{background:var(--sur);border-radius:20px;box-shadow:var(--shl);width:100%;max-width:460px;overflow:hidden}
+.auth-hd{background:var(--blu);padding:28px 32px;text-align:center}
+.auth-hd-ic{font-size:32px;margin-bottom:9px}
+.auth-hd-tt{font-size:19px;font-weight:800;color:#fff;margin-bottom:3px}
+.auth-hd-sb{font-size:13px;color:rgba(255,255,255,.55)}
+.auth-bd{padding:28px 32px}
+.auth-tab{display:flex;background:var(--bg);border-radius:var(--rs);padding:4px;margin-bottom:22px;gap:4px}
+.atb{flex:1;padding:9px;border:none;background:none;border-radius:6px;font-size:13px;font-weight:600;color:var(--txm);cursor:pointer;font-family:inherit;transition:all .18s}
+.atb.on{background:#fff;color:var(--blu);box-shadow:0 1px 6px rgba(26,47,80,.1)}
+.demo-hint{background:var(--bll);border-radius:var(--rs);padding:12px 14px;margin-bottom:18px;font-size:12px;color:var(--blu);line-height:1.8}
+.demo-hint strong{font-weight:700;display:block;margin-bottom:2px}
+.fg{margin-bottom:14px}
+.fl{display:block;font-size:12.5px;font-weight:600;color:var(--txs);margin-bottom:5px}
+.fi{width:100%;padding:11px 13px;border:1.5px solid var(--bor);border-radius:var(--rs);font-size:14px;color:var(--tx);font-family:inherit;background:#fff;outline:none;transition:border-color .15s;-webkit-appearance:none}
+.fi:focus{border-color:var(--blu);box-shadow:0 0 0 3px rgba(26,79,160,.08)}
+.fi.err{border-color:var(--red)}
+.fe{font-size:11.5px;color:var(--red);margin-top:4px;display:none}
+.fe.show{display:block}
+.fi-sel{width:100%;padding:11px 13px;border:1.5px solid var(--bor);border-radius:var(--rs);font-size:14px;color:var(--tx);font-family:inherit;background:#fff;outline:none;cursor:pointer;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%234A5578' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;padding-right:34px;transition:border-color .15s}
+.fi-sel:focus{border-color:var(--blu)}
+.fi-ta{width:100%;padding:11px 13px;border:1.5px solid var(--bor);border-radius:var(--rs);font-size:14px;color:var(--tx);font-family:inherit;background:#fff;outline:none;resize:vertical;min-height:85px;line-height:1.6;transition:border-color .15s}
+.fi-ta:focus{border-color:var(--blu)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fdv{border:none;border-top:1.5px solid var(--bg);margin:16px 0}
+.btn-login{width:100%;background:var(--blu);color:#fff;border:none;padding:13px;border-radius:var(--rs);font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:4px}
+.btn-login:hover{background:var(--bld)}
+.btn-reg{width:100%;background:var(--org);color:#fff;border:none;padding:13px;border-radius:var(--rs);font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:4px}
+.btn-reg:hover{background:var(--ord)}
+.auth-ft{text-align:center;margin-top:14px;font-size:13px;color:var(--txm)}
+.auth-ft a{color:var(--org);font-weight:600;cursor:pointer}
+.code-box{background:var(--orl);border:2px dashed var(--org);border-radius:var(--r);padding:17px;margin-bottom:16px;text-align:center}
+.cb-tt{font-size:13px;font-weight:700;color:var(--ord);margin-bottom:4px}
+.cb-dc{font-size:12px;color:var(--txm);line-height:1.6}
+.cb-ht{margin-top:9px;font-size:11.5px;color:var(--txm)}
+.cb-ht strong{color:var(--ord);font-family:'Inter',sans-serif}
+.code-wrap{display:flex;gap:8px;margin-top:13px}
+.code-in{flex:1;padding:12px 14px;border:2px solid var(--bor);border-radius:var(--rs);font-size:17px;font-weight:700;font-family:'Inter',sans-serif;text-align:center;letter-spacing:4px;color:var(--tx);outline:none;transition:border-color .15s;text-transform:uppercase}
+.code-in:focus{border-color:var(--org);box-shadow:0 0 0 3px var(--orl)}
+.btn-code{background:var(--org);color:#fff;border:none;padding:12px 16px;border-radius:var(--rs);font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0}
+.code-err{font-size:11.5px;color:var(--red);margin-top:7px;display:none;text-align:center}
+.code-ok{background:var(--grl);border-radius:var(--rs);padding:10px 14px;margin-bottom:14px;font-size:13px;color:var(--grd);font-weight:600;text-align:center;display:none}
+.vbox{background:var(--bll);border:2px solid var(--blu);border-radius:var(--r);padding:16px;margin-bottom:14px}
+.vbox-tt{font-size:13px;font-weight:700;color:var(--blu);margin-bottom:4px}
+.vbox-dc{font-size:12px;color:var(--txs);margin-bottom:12px;line-height:1.6}
+.fhint{font-size:11.5px;color:var(--txm);margin-top:4px;line-height:1.5}
+
+/* ── 수강신청 ── */
+.ap-pg{max-width:1120px;margin:0 auto;padding:32px 24px 68px;display:grid;grid-template-columns:1fr 310px;gap:26px;align-items:start}
+.stepbar{display:flex;align-items:center;margin-bottom:22px}
+.sbi{display:flex;align-items:center;gap:7px}
+.sbc{width:28px;height:28px;border-radius:50%;background:var(--bor);color:var(--txm);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Inter',sans-serif}
+.sbi.act .sbc{background:var(--blu);color:#fff;box-shadow:0 0 0 3px var(--bll)}
+.sbi.dn .sbc{background:var(--org);color:#fff}
+.sbl{font-size:12px;font-weight:600;color:var(--txm);white-space:nowrap}
+.sbi.act .sbl{color:var(--blu)}.sbi.dn .sbl{color:var(--ord)}
+.sb-ln{flex:1;height:2px;background:var(--bor);margin:0 7px;border-radius:2px}
+.sb-ln.dn{background:var(--org)}
+.fcard{background:var(--sur);border-radius:var(--r);border:1px solid var(--bor);box-shadow:var(--sh);overflow:hidden}
+.fch{padding:19px 22px 14px;border-bottom:1.5px solid var(--bg);background:var(--bg);display:flex;align-items:flex-start;gap:12px}
+.fch-ic{width:35px;height:35px;border-radius:9px;background:var(--bll);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.fch-tt{font-size:15px;font-weight:800;color:var(--tx);margin-bottom:2px}
+.fch-dc{font-size:12px;color:var(--txm)}
+.fcb{padding:22px}
+.csg{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:18px}
+.csc{border:2px solid var(--bor);border-radius:var(--r);padding:15px;cursor:pointer;transition:all .18s;background:#fff;position:relative}
+.csc:hover{border-color:var(--blu)}.csc.sel{border-color:var(--blu);background:var(--bll)}
+.csc-ck{position:absolute;top:11px;right:11px;width:17px;height:17px;border-radius:50%;border:2px solid var(--bor);display:flex;align-items:center;justify-content:center}
+.csc.sel .csc-ck{background:var(--blu);border-color:var(--blu)}
+.csc.sel .csc-ck::after{content:'';width:4px;height:7px;border-right:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(45deg) translateY(-1px)}
+.cs-tg{display:inline-block;font-size:10px;font-weight:700;padding:2px 9px;border-radius:20px;margin-bottom:8px}
+.cta{background:var(--orl);color:var(--ord)}.ctb{background:var(--bll);color:var(--blu)}.ctc{background:#EDE9FE;color:#6D28D9}.ctd{background:#FCE7F3;color:#9D174D}
+.cs-nm{font-size:13px;font-weight:700;color:var(--tx);margin-bottom:4px}
+.cs-dc{font-size:11.5px;color:var(--txm);line-height:1.5}
+.sch-g{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.sch-b{border:1.5px solid var(--bor);border-radius:var(--rs);padding:10px 7px;text-align:center;cursor:pointer;transition:all .15s;background:#fff}
+.sch-b:hover,.sch-b.sel{border-color:var(--blu);background:var(--bll)}.sch-b.full{opacity:.4;pointer-events:none}
+.sch-d{font-size:11.5px;font-weight:700;color:var(--tx);display:block}
+.sch-t{font-size:10.5px;color:var(--txm);display:block;margin-top:2px}
+.sch-s{font-size:9.5px;font-weight:700;margin-top:6px;display:inline-block;padding:2px 7px;border-radius:10px}
+.ss-ok{background:var(--orl);color:var(--ord)}.ss-lw{background:#FEF3C7;color:#92400E}.ss-full{background:#FFEBEE;color:#B91C1C}
+.ag-all{display:flex;align-items:center;gap:9px;padding:11px 13px;background:var(--bll);border-radius:var(--rs);margin-bottom:8px;cursor:pointer}
+.ag-all input{width:16px;height:16px;accent-color:var(--blu);cursor:pointer}
+.ag-all-l{font-size:13.5px;font-weight:700;color:var(--blu);cursor:pointer}
+.ag-item{display:flex;align-items:flex-start;gap:9px;padding:10px 12px;border:1.5px solid var(--bor);border-radius:var(--rs);margin-bottom:7px;cursor:pointer;background:#fff}
+.ag-item input{width:15px;height:15px;accent-color:var(--blu);flex-shrink:0;margin-top:2px;cursor:pointer}
+.ag-tt{font-size:12.5px;font-weight:600;color:var(--txs);display:flex;align-items:center;gap:5px}
+.ag-rq{font-size:9.5px;font-weight:700;background:#FFEBEE;color:#B91C1C;padding:1px 5px;border-radius:3px}
+.ag-op{font-size:9.5px;font-weight:600;background:var(--bg);color:var(--txm);padding:1px 5px;border-radius:3px}
+.ag-dc{font-size:11px;color:var(--txm);margin-top:2px;line-height:1.5}
+.btn-p{background:var(--blu);color:#fff;border:none;padding:12px 22px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-o{background:#fff;color:var(--blu);border:1.5px solid var(--blu);padding:11px 20px;border-radius:9px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
+.btn-or{background:var(--org);color:#fff;border:none;padding:13px 34px;border-radius:9px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-row{display:flex;gap:11px;justify-content:space-between;margin-top:8px}
+.sidebar{display:flex;flex-direction:column;gap:13px;position:sticky;top:82px}
+.sc{background:var(--sur);border-radius:var(--r);border:1px solid var(--bor);box-shadow:var(--sh);overflow:hidden}
+.sc-hd{padding:12px 16px 10px;border-bottom:1px solid var(--bg);display:flex;align-items:center;gap:8px}
+.sc-ic{width:23px;height:23px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px}
+.sio{background:var(--orl)}.sib{background:var(--bll)}
+.sc-tt{font-size:13px;font-weight:800;color:var(--tx)}
+.sc-bd{padding:12px 16px 14px}
+.rm{display:flex;flex-direction:column}
+.rmi{display:flex;gap:10px}
+.rml{display:flex;flex-direction:column;align-items:center}
+.rmd{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;font-family:'Inter',sans-serif;color:#fff;flex-shrink:0}
+.rml-ln{width:2px;background:var(--bor);flex:1;margin:3px 0;min-height:9px}
+.rmr{padding-bottom:11px;flex:1;padding-top:2px}
+.rmr h4{font-size:12px;font-weight:700;color:var(--tx);margin-bottom:2px}
+.rmr p{font-size:11px;color:var(--txm);line-height:1.5}
+.ctl{display:flex;flex-direction:column;gap:8px}
+.ctr{display:flex;align-items:flex-start;gap:7px}
+.ct-ic{width:24px;height:24px;background:var(--bg);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.ct-tx{font-size:12px;color:var(--txs);line-height:1.45}
+.ct-tx strong{color:var(--tx);font-weight:600;display:block;font-size:11px;margin-bottom:1px}
+/* ── 대시보드 ── */
+.dash-pg{max-width:1120px;margin:0 auto;padding:32px 24px 68px}
+.db-bn{background:linear-gradient(135deg,var(--blu),var(--bld) 55%,#091E50);border-radius:var(--r);padding:24px 28px;margin-bottom:18px;position:relative;overflow:hidden}
+.db-gd{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.05) 1.5px,transparent 1.5px);background-size:22px 22px}
+.db-gl{position:absolute;top:-50px;right:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(244,121,32,.2) 0%,transparent 65%);border-radius:50%}
+.db-in{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.db-ey{font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px}
+.db-nm{font-size:19px;font-weight:900;color:#fff;letter-spacing:-.4px;margin-bottom:4px}
+.db-sb{font-size:13px;color:rgba(255,255,255,.55)}
+.db-r{display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+.db-badge{background:rgba(244,121,32,.18);border:1px solid rgba(244,121,32,.3);border-radius:9px;padding:13px 18px;text-align:center}
+.db-bl{font-size:10px;font-weight:600;color:rgba(255,255,255,.4);margin-bottom:3px}
+.db-bv{font-size:14px;font-weight:800;color:#F89440}
+.db-vb{display:inline-flex;align-items:center;gap:5px;border-radius:7px;padding:7px 12px;font-size:12px;font-weight:700}
+.dvok{background:rgba(16,185,129,.18);border:1px solid rgba(16,185,129,.35);color:#6EE7B7}
+.dvpd{background:rgba(251,191,36,.18);border:1px solid rgba(251,191,36,.35);color:#FCD34D}
+.dvno{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5)}
+.vc-card{border-radius:var(--r);padding:17px 22px;margin-bottom:17px;display:flex;align-items:center;gap:15px}
+.vc-ok{background:linear-gradient(135deg,#065F46,#047857)}.vc-pd{background:linear-gradient(135deg,#92400E,#B45309)}
+.vc-ic{font-size:26px;flex-shrink:0}.vc-tx{flex:1}
+.vc-tt{font-size:13px;font-weight:800;color:#fff;margin-bottom:2px}
+.vc-dc{font-size:12.5px;color:rgba(255,255,255,.8)}
+.vc-st{background:rgba(255,255,255,.2);color:#fff;font-size:11px;font-weight:700;padding:5px 11px;border-radius:20px;flex-shrink:0;white-space:nowrap}
+.match-bn{background:linear-gradient(135deg,#F47920,#C4600A);border-radius:var(--r);padding:22px 26px;margin-bottom:17px;display:flex;align-items:center;gap:18px;position:relative;overflow:hidden}
+.mbn-ic{font-size:40px;flex-shrink:0;position:relative;z-index:1}
+.mbn-tx{flex:1;position:relative;z-index:1}
+.mbn-bg{display:inline-block;background:rgba(255,255,255,.2);color:#fff;font-size:10px;font-weight:700;padding:2px 9px;border-radius:20px;margin-bottom:6px}
+.mbn-tt{font-size:17px;font-weight:900;color:#fff;margin-bottom:4px}
+.mbn-dc{font-size:12.5px;color:rgba(255,255,255,.8)}
+.mbn-r{position:relative;z-index:1;flex-shrink:0}
+.btn-goto{background:#fff;color:var(--ord);border:none;padding:11px 20px;border-radius:9px;font-size:13.5px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap}
+.nc-card{border-radius:var(--r);overflow:hidden;box-shadow:var(--shl);margin-bottom:17px}
+.nc-hd{background:var(--org);padding:10px 22px;display:flex;align-items:center;justify-content:space-between}
+.nc-hl{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:800;color:#fff}
+.nc-hr{font-size:12px;font-weight:700;color:rgba(255,255,255,.85)}
+.nc-bd{background:linear-gradient(135deg,#0F3275,#1A4FA0);padding:22px;position:relative;overflow:hidden}
+.nc-sub{font-size:clamp(15px,2.5vw,20px);font-weight:900;color:#fff;letter-spacing:-.4px;margin-bottom:18px}
+.nc-gd{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
+.nc-it{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:14px}
+.nc-it-ic{font-size:19px;margin-bottom:6px}
+.nc-it-lb{font-size:10px;font-weight:700;color:rgba(255,255,255,.45);letter-spacing:.6px;text-transform:uppercase;margin-bottom:3px}
+.nc-it-vl{font-size:14px;font-weight:800;color:#fff;line-height:1.3}
+.nc-tip{margin-top:13px;padding:10px 13px;background:rgba(244,121,32,.15);border:1px solid rgba(244,121,32,.3);border-radius:8px;font-size:12.5px;color:rgba(255,255,255,.8)}
+.stp-card{background:var(--sur);border-radius:var(--r);border:1px solid var(--bor);box-shadow:var(--sh);padding:22px 26px;margin-bottom:17px}
+.stp-tt{font-size:15px;font-weight:800;color:var(--tx);margin-bottom:2px}
+.stp-dc{font-size:12.5px;color:var(--txm);margin-bottom:18px}
+.stepper{display:flex;align-items:flex-start}
+.stp-col{display:flex;flex-direction:column;align-items:center;flex:1}
+.stp-cn{flex:1;height:4px;margin-top:15px;border-radius:4px}
+.cn-dn{background:var(--org)}.cn-ig{background:linear-gradient(90deg,var(--org) 55%,var(--bor) 55%)}.cn-wt{background:var(--bor)}
+.stp-ci{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;font-family:'Inter',sans-serif;margin-bottom:8px;flex-shrink:0}
+.si-dn{background:var(--org);color:#fff;box-shadow:0 0 0 4px var(--orl)}
+.si-ig{background:var(--blu);color:#fff;box-shadow:0 0 0 4px var(--bll);animation:scp 2s ease-in-out infinite}
+.si-wt{background:var(--bg);color:var(--txm);border:2px solid var(--bor)}
+@keyframes scp{0%,100%{box-shadow:0 0 0 4px var(--bll)}50%{box-shadow:0 0 0 8px var(--bll)}}
+.stp-nm{font-size:11px;font-weight:700;color:var(--tx);text-align:center;margin-bottom:2px;line-height:1.3}
+.stp-nm.mt{color:var(--txm);font-weight:500}
+.stp-sb{font-size:10px;color:var(--txm);text-align:center}
+.stp-dt{font-size:10px;font-weight:600;margin-top:3px;text-align:center}
+.dt-dn{color:var(--ord)}.dt-ig{color:var(--blu)}.dt-wt{color:var(--txm)}
+.cur-box{display:flex;align-items:center;gap:12px;background:var(--bll);border:2px solid var(--blu);border-radius:var(--r);padding:14px 18px;margin-top:16px}
+.cur-ic{width:38px;height:38px;border-radius:9px;background:var(--blu);color:#fff;font-size:17px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cur-tt{font-size:13.5px;font-weight:800;color:var(--blu);margin-bottom:2px}
+.cur-dc{font-size:12.5px;color:var(--txs);line-height:1.5}
+.cur-bd{margin-left:auto;background:var(--blu);color:#fff;font-size:12px;font-weight:700;padding:6px 14px;border-radius:7px;flex-shrink:0;white-space:nowrap}
+.lv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:17px}
+.lv-card{background:var(--sur);border-radius:var(--r);border:1.5px solid var(--bor);box-shadow:var(--sh);padding:18px;position:relative;overflow:hidden}
+.lv-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;border-radius:4px 4px 0 0;background:var(--bor)}
+.lvc-dn{border-color:var(--org)}.lvc-dn::before{background:var(--org)}
+.lvc-ig{border-color:var(--blu)}.lvc-ig::before{background:var(--blu)}
+.lvc-lk{opacity:.5}
+.lv-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;margin-top:5px}
+.lv-ibx{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px}
+.lia{background:var(--orl)}.lib{background:var(--bll)}.lic{background:#EDE9FE}
+.lv-bg{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px}
+.lb-dn{background:var(--orl);color:var(--ord)}.lb-ig{background:var(--bll);color:var(--blu)}.lb-wt{background:var(--bg);color:var(--txm)}
+.lv-st{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:2px}
+.la{color:var(--ord)}.lb{color:var(--blu)}.lc{color:#6D28D9}
+.lv-tt{font-size:13.5px;font-weight:800;color:var(--tx);margin-bottom:4px}
+.lv-dc{font-size:12px;color:var(--txm);line-height:1.6;margin-bottom:10px}
+.pb{height:7px;background:rgba(26,47,80,.08);border-radius:10px;overflow:hidden;margin-bottom:5px}
+.pbf{height:100%;border-radius:10px;transition:width .7s ease}
+.fo{background:var(--org)}.fb{background:var(--blu)}.fp{background:#7C3AED}
+.lv-ft{display:flex;justify-content:space-between;align-items:center}
+.lv-ft-tx{font-size:11px;color:var(--txm)}.lv-ft-tx.ok{color:var(--ord);font-weight:600}
+.lv-pct{font-size:11.5px;font-weight:800;font-family:'Inter',sans-serif;color:var(--txm)}.po{color:var(--ord)}.pb2{color:var(--blu)}
+.td-sec{margin-top:10px;border-top:1px solid rgba(26,47,80,.08);padding-top:9px}
+.td-lb{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px}
+.td-it{display:flex;align-items:center;gap:5px;padding:2px 0;font-size:11.5px}
+.td-ic{width:13px;height:13px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:7px;color:#fff;flex-shrink:0}
+.ck-card{background:var(--sur);border-radius:var(--r);border:1px solid var(--bor);box-shadow:var(--sh);padding:20px 24px;margin-bottom:17px}
+.ck-tt{font-size:15px;font-weight:800;color:var(--tx);margin-bottom:2px}
+.ck-dc{font-size:12.5px;color:var(--txm);margin-bottom:12px}
+.cl-list{display:flex;flex-direction:column;gap:7px}
+.cli{display:flex;align-items:center;gap:11px;padding:11px 13px;border-radius:var(--rs);border:1.5px solid var(--bor);background:#fff}
+.cli-dn{border-color:var(--org);background:var(--orl)}.cli-ig{border-color:var(--blu);background:var(--bll)}.cli-wt{opacity:.6}
+.cl-ic{width:23px;height:23px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.cl-dn{background:var(--org);color:#fff}.cl-ig{background:var(--blu);color:#fff;font-size:9px}.cl-wt{background:var(--bg);border:2px solid var(--bor);color:var(--txm)}
+.cl-nm{font-size:13px;font-weight:700;color:var(--tx);margin-bottom:1px}.cl-sb{font-size:11.5px;color:var(--txm)}
+.cl-rt{font-size:11.5px;font-weight:700;margin-left:auto;flex-shrink:0}
+.cr-dn{color:var(--ord)}.cr-ig{color:var(--blu)}.cr-wt{color:var(--txm)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ic{background:var(--sur);border-radius:var(--r);border:1px solid var(--bor);box-shadow:var(--sh);overflow:hidden}
+.ic-hd{padding:13px 17px 10px;border-bottom:1px solid var(--bg);display:flex;align-items:center;gap:8px}
+.ic-ic{width:25px;height:25px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px}
+.ico{background:var(--orl)}.icb{background:var(--bll)}
+.ic-tt{font-size:13.5px;font-weight:800;color:var(--tx)}
+.ic-bd{padding:13px 17px 15px}
+.ni-list{display:flex;flex-direction:column;gap:7px}
+.ni{display:flex;align-items:center;gap:9px;padding:8px 10px;background:var(--bg);border-radius:var(--rs)}
+.ni-dt{font-size:11px;font-weight:700;color:var(--blu);background:var(--bll);padding:3px 8px;border-radius:5px;flex-shrink:0;font-family:'Inter',sans-serif;white-space:nowrap}
+.ni-tx{font-size:12.5px;color:var(--txs);font-weight:500;flex:1}
+.ni-dd{font-size:11px;font-weight:700;color:var(--ord);flex-shrink:0}
+.nf-list{display:flex;flex-direction:column}
+.nfi{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid var(--bg)}
+.nfi:last-child{border-bottom:none}
+.nd{width:7px;height:7px;border-radius:50%;margin-top:5px;flex-shrink:0}
+.ndo{background:var(--org)}.ndb{background:var(--blu)}.ndg{background:var(--grn)}
+.nf-tx{font-size:12.5px;color:var(--txs);line-height:1.55;flex:1}
+.nf-tx strong{color:var(--tx);font-weight:700}
+.nf-tm{font-size:11px;color:var(--txm);white-space:nowrap;margin-top:2px;flex-shrink:0}
+
+/* ── 알림마당 ── */
+.notice-pg{max-width:1120px;margin:0 auto;padding:32px 24px 68px}
+.notice-hd h2{font-size:21px;font-weight:800;color:var(--tx);margin-bottom:4px}
+.notice-hd p{font-size:14px;color:var(--txm);margin-bottom:22px}
+.notice-list{background:var(--sur);border-radius:var(--r);border:1px solid var(--bor);box-shadow:var(--sh);overflow:hidden}
+.notice-it{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--bg);cursor:pointer;transition:background .15s}
+.notice-it:last-child{border-bottom:none}.notice-it:hover{background:var(--bg)}
+.n-tp{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;flex-shrink:0}
+.ntb{background:var(--bll);color:var(--blu)}.nto{background:var(--orl);color:var(--ord)}.ntp{background:#F3E8FF;color:#6D28D9}
+.n-ttl{font-size:13.5px;font-weight:500;color:var(--txs);flex:1}
+.n-new{display:inline-block;background:#EF4444;color:#fff;font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;margin-left:5px;vertical-align:middle}
+.n-dt{font-size:11.5px;color:var(--txm);flex-shrink:0}
+
+/* ── 운영자 ── */
+.admin-pg{max-width:1120px;margin:0 auto;padding:32px 24px 68px}
+.admin-hd{margin-bottom:22px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:11px}
+.admin-hd h2{font-size:21px;font-weight:800;color:var(--tx);margin-bottom:3px}
+.admin-hd p{font-size:13px;color:var(--txm)}
+.admin-tab{display:flex;gap:4px;background:var(--sur);border-radius:var(--r);border:1px solid var(--bor);box-shadow:var(--sh);padding:5px;margin-bottom:20px;flex-wrap:wrap}
+.atab{padding:9px 16px;border:none;background:none;border-radius:var(--rs);font-size:13px;font-weight:600;color:var(--txm);cursor:pointer;font-family:inherit;transition:all .18s}
+.atab.on{background:var(--blu);color:#fff;box-shadow:0 2px 8px rgba(26,47,80,.2)}
+.atab:hover:not(.on){background:var(--bll);color:var(--blu)}
+.asg{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:18px}
+.as{background:var(--sur);border-radius:var(--r);border:1px solid var(--bor);box-shadow:var(--sh);padding:16px 18px;position:relative;overflow:hidden}
+.as::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:3px 3px 0 0}
+.asb::before{background:var(--blu)}.aso::before{background:var(--org)}.asg2::before{background:var(--grn)}.asr::before{background:var(--red)}
+.as-lb{font-size:11.5px;color:var(--txm);margin-bottom:6px}
+.as-vl{font-size:24px;font-weight:800;color:var(--tx);font-family:'Inter',sans-serif;display:block;margin-bottom:2px}
+.as-sb{font-size:11px;color:var(--txm)}
+.as-ic{position:absolute;top:13px;right:14px;font-size:19px;opacity:.2}
+.atw{background:var(--sur);border-radius:var(--r);border:1px solid var(--bor);box-shadow:var(--sh);overflow:hidden;margin-bottom:17px}
+.atw-hd{padding:16px 20px 12px;border-bottom:1px solid var(--bg);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:9px}
+.atw-tt{font-size:14.5px;font-weight:800;color:var(--tx)}
+.atw-dc{font-size:12px;color:var(--txm);margin-top:2px}
+.btn-add{background:var(--blu);color:#fff;border:none;padding:8px 16px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
+table.atbl{width:100%;border-collapse:collapse}
+table.atbl th{font-size:11px;font-weight:700;color:var(--txm);text-align:left;padding:8px 15px;background:var(--bg);white-space:nowrap}
+table.atbl td{font-size:13px;color:var(--txs);padding:11px 15px;border-bottom:1px solid var(--bg);vertical-align:middle}
+table.atbl tr:last-child td{border-bottom:none}
+table.atbl tr:hover td{background:var(--bg)}
+.sp{display:inline-flex;align-items:center;gap:3px;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:700}
+.sp-pd{background:#FEF3C7;color:#92400E}.sp-ok{background:var(--grl);color:var(--grd)}
+.sp-ac{background:var(--bll);color:var(--blu)}.sp-dn{background:var(--orl);color:var(--ord)}.sp-wt{background:var(--bg);color:var(--txm)}
+.btn-tb{font-size:11px;font-weight:700;padding:4px 11px;border-radius:5px;cursor:pointer;font-family:inherit;border:none;margin-right:4px;transition:all .15s}
+.btap{background:var(--grl);color:var(--grd)}.btap:hover{background:var(--grn);color:#fff}
+.btrj{background:var(--rdl);color:#991B1B}.btrj:hover{background:var(--red);color:#fff}
+.btis{background:var(--bll);color:var(--blu)}.btis:hover{background:var(--blu);color:#fff}
+.coh{background:var(--sur);border-radius:var(--r);border:1px solid var(--bor);box-shadow:var(--sh);padding:18px 20px;margin-bottom:12px}
+.coh-hd{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:9px;margin-bottom:13px}
+.coh-bg{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 11px;border-radius:20px}
+.cb-op{background:var(--grl);color:var(--grd)}.cb-cl{background:var(--bg);color:var(--txm)}
+.coh-tt{font-size:15px;font-weight:800;color:var(--tx);margin-top:5px;margin-bottom:2px}
+.coh-sb{font-size:12px;color:var(--txm)}
+.coh-st{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;padding-top:13px;border-top:1px solid var(--bg)}
+.cs-st{text-align:center;background:var(--bg);border-radius:8px;padding:9px}
+.cs-n{font-size:19px;font-weight:800;color:var(--tx);font-family:'Inter',sans-serif;display:block}
+.cs-l{font-size:10.5px;color:var(--txm)}
+.coh-acts{display:flex;gap:7px;flex-wrap:wrap}
+.btn-coh{font-size:12px;font-weight:700;padding:7px 13px;border-radius:7px;cursor:pointer;font-family:inherit;border:none}
+.bco{background:var(--org);color:#fff}.bcc{background:var(--bg);color:var(--txm)}
+
+/* ── 모달 ── */
+.m-ov{display:none;position:fixed;inset:0;background:rgba(26,39,64,.55);z-index:300;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.m-ov.show{display:flex}
+.modal{background:#fff;border-radius:18px;padding:34px;max-width:440px;width:90%;text-align:center;animation:mup .3s ease}
+@keyframes mup{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.m-ic{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 15px}
+.mio{background:var(--orl)}.mib{background:var(--bll)}.mig{background:var(--grl)}
+.modal h2{font-size:18px;font-weight:800;color:var(--tx);margin-bottom:8px}
+.modal-dc{font-size:13.5px;color:var(--txs);line-height:1.7;margin-bottom:18px}
+.m-num-box{background:var(--orl);border-radius:9px;padding:13px;margin-bottom:16px}
+.m-num-box p{font-size:12px;color:var(--txm);margin-bottom:3px}
+.m-num-box strong{font-size:18px;font-weight:800;color:var(--ord);font-family:'Inter',sans-serif}
+.m-code-box{background:var(--bll);border-radius:9px;padding:13px;margin-bottom:16px}
+.m-code-box p{font-size:12px;color:var(--txm);margin-bottom:4px}
+.m-code-box strong{font-size:21px;font-weight:900;color:var(--blu);font-family:'Inter',sans-serif;letter-spacing:2px}
+.btn-m{width:100%;border:none;padding:12px;border-radius:9px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-mb{background:var(--blu);color:#fff}.btn-mo{background:var(--org);color:#fff}.btn-mg{background:var(--grn);color:#fff}
+
+/* ── 푸터 ── */
+.footer{background:#2D3A47;color:rgba(255,255,255,.5);padding:36px 24px 22px}
+.ft-in{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:34px}
+.ft-br{display:flex;align-items:center;gap:7px;margin-bottom:7px}
+.ft-bg{background:var(--org);color:#fff;font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px}
+.ft-bn{font-size:13.5px;font-weight:700;color:#fff}
+.ft-dc{font-size:12px;color:rgba(255,255,255,.38);line-height:1.7;margin-bottom:10px}
+.ft-ct{font-size:12px;color:rgba(255,255,255,.42);line-height:1.9}
+.ft-col h4{font-size:11px;font-weight:700;color:rgba(255,255,255,.7);margin-bottom:11px;letter-spacing:.6px;text-transform:uppercase}
+.ft-col ul{list-style:none}.ft-col li{margin-bottom:6px}
+.ft-col a{font-size:12px;color:rgba(255,255,255,.38);text-decoration:none}
+.ft-bt{max-width:1120px;margin:18px auto 0;padding-top:15px;border-top:1px solid rgba(255,255,255,.08);font-size:11px;color:rgba(255,255,255,.22);display:flex;justify-content:space-between}
+
+@media(max-width:900px){
+  .hero-in{grid-template-columns:1fr}.hcard{display:none}
+  .cg,.ng{grid-template-columns:1fr}.nc.ft{grid-column:span 1}
+  .mb{flex-direction:column;padding:28px}.mb-r{width:100%}
+  .ap-pg{grid-template-columns:1fr}.sidebar{position:static}
+  .lv-grid,.two-col{grid-template-columns:1fr}
+  .asg{grid-template-columns:1fr 1fr}.coh-st{grid-template-columns:1fr 1fr}
+  .ft-in{grid-template-columns:1fr}
+  .match-bn{flex-direction:column}.mbn-r{width:100%}.btn-goto{width:100%}
+}
+@media(max-width:600px){.nav-links{display:none}.frow{grid-template-columns:1fr}.csg{grid-template-columns:1fr}.sch-g{grid-template-columns:1fr 1fr}}
+</style>
+
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-top">화성특례시 AI 혁신학교 AI랩 공식 플랫폼</div>
+  <div class="nav-in">
+    <div class="logo" onclick="goView('home')">
+      <div class="logo-ic">🤝</div>
+      <div><div class="logo-nm">화성 AI 시민리더 잇다(IT-DA)</div><span class="logo-sb">화성특례시 AI 시민 리더 양성 플랫폼</span></div>
+    </div>
+    <div class="nav-links">
+      <button class="nl" id="nl-home" onclick="goView('home')">홈</button>
+      <button class="nl" id="nl-apply" onclick="goView('apply')">수강 신청</button>
+      <button class="nl" id="nl-dash" onclick="requireLogin('dashboard')">나의 현황</button>
+      <button class="nl" id="nl-notice" onclick="goView('notice')">알림마당</button>
+      <button class="nl adm" id="nl-admin" onclick="requireAdmin()">⚙ 운영자</button>
+    </div>
+    <div class="nav-right" id="nav-guest">
+      <button class="btn-nl" onclick="goView('login')">로그인</button>
+      <button class="btn-na" onclick="goView('apply')">신청하기</button>
+    </div>
+    <div class="nav-user" id="nav-user">
+      <div class="nav-av" id="nav-av">김</div>
+      <span class="nav-un" id="nav-un">김화성</span>
+      <span class="nav-vb" id="nav-vb">✓ 화성시민</span>
+      <button class="btn-out" onclick="doLogout()">로그아웃</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div id="view-home" class="view active">
+  <div class="ticker"><div class="tick-tr">
+    <span class="ti"><span class="ti-tg">모집</span> 2기 AI 시민 리더 양성과정 모집 — 참여코드 발급 중, 화성시민 우선 선정.</span>
+    <span class="ti"><span class="ti-tg">공지</span> 화성시 거주 인증 후 참여코드 발급 신청 가능합니다.</span>
+    <span class="ti"><span class="ti-tg">소식</span> AI 시민 리더 1기 47명 수료 · 강사 파견 156회 달성.</span>
+    <span class="ti"><span class="ti-tg">모집</span> 2기 AI 시민 리더 양성과정 모집 — 참여코드 발급 중, 화성시민 우선 선정.</span>
+    <span class="ti"><span class="ti-tg">공지</span> 화성시 거주 인증 후 참여코드 발급 신청 가능합니다.</span>
+    <span class="ti"><span class="ti-tg">소식</span> AI 시민 리더 1기 47명 수료 · 강사 파견 156회 달성.</span>
+  </div></div>
+  <section class="hero">
+    <div class="hero-gd"></div><div class="hero-gl"></div>
+    <div class="hero-in">
+      <div>
+        <div class="hero-ey"><span class="hero-dt"></span>2026 AI 혁신학교 AI랩 · 2기 모집 중</div>
+        <h1>화성의 인재(人)를<br>지역 사회와 <em>잇다,</em><br>미래 교육의 가치를 잇다.</h1>
+        <p class="hero-dc">AI 시민 리더 양성과정에 참여하고 지역 사회를 변화시키는 강사로 성장하세요. 화성특례시가 함께합니다.</p>
+        <div class="hero-cta">
+          <button class="btn-hp" onclick="goView('apply')">수강 신청하기 →</button>
+          <button class="btn-hg" onclick="goView('login')">로그인 / 내 현황</button>
+        </div>
+      </div>
+      <div class="hcard">
+        <div class="hc-lb">LIVE · 플랫폼 현황</div>
+        <div class="hc-gd">
+          <div class="hc-st"><span class="hc-n og">47</span><span class="hc-s">활동 AI 리더</span></div>
+          <div class="hc-st"><span class="hc-n">156</span><span class="hc-s">누적 교육 실적</span></div>
+          <div class="hc-st"><span class="hc-n">1,240</span><span class="hc-s">총 수강생</span></div>
+          <div class="hc-st"><span class="hc-n og">98%</span><span class="hc-s">만족도</span></div>
+        </div>
+        <hr class="hc-dv">
+        <div class="fs">
+          <div class="fs-i"><div class="fs-n">1</div><span class="fs-t">신청 → 화성시 거주 인증</span></div>
+          <div class="fs-i"><div class="fs-n">2</div><span class="fs-t">운영자 검토 → 참여코드 발급</span></div>
+          <div class="fs-i"><div class="fs-n">3</div><span class="fs-t">코드 입력 → 가입 → 대시보드</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="hw" style="padding-top:34px">
+    <div class="rb">
+      <div class="rb-l">
+        <div class="rb-bg">📣 모집 공고 · 2026년 하반기</div>
+        <div class="rb-tt">AI 시민 리더 양성과정 2기 모집</div>
+        <div class="rb-dc">화성시 거주 시민 누구나 신청 가능 · 초급·중급·고급 전 과정 무료 · 선착순 마감</div>
+      </div>
+      <div class="rb-r">
+        <span class="rb-dd">D-24</span><div class="rb-dl">모집 마감까지</div>
+        <button class="btn-rb" onclick="goView('apply')">지금 신청하기 →</button>
+      </div>
+    </div>
+  </div>
+  <div style="padding:52px 24px 0">
+    <div class="hw">
+      <div class="sh"><div class="sl">PROGRAM</div><div class="st">AI 시민 리더 양성 과정</div><div class="sd">초급부터 고급까지 3단계로 체계적으로 배우고 성장하세요</div></div>
+      <div class="cg">
+        <div class="cc ba"><div class="cc-ic cia">🌱</div><div class="cc-st ca">STEP 1 · 초급</div><div class="cc-tt">AI 기초 과정</div><div class="cc-dc">AI를 처음 접하는 시민을 위한 입문 과정. 생성형 AI 개념과 일상 속 활용법을 학습합니다.</div><div class="cc-tg"><span class="ctg">📅 8주</span><span class="ctg">👥 20명</span><span class="ctg">💰 무료</span></div></div>
+        <div class="cc bb"><div class="cc-ic cib">🚀</div><div class="cc-st cb">STEP 2 · 중급</div><div class="cc-tt">AI 시민 리더 양성</div><div class="cc-dc">초급 수료자 대상. AI 교육 강사 역량 개발, 커리큘럼 설계, 모의 강의 실습 포함.</div><div class="cc-tg"><span class="ctg">📅 12주</span><span class="ctg">👥 15명</span><span class="ctg">💰 무료</span></div></div>
+        <div class="cc bc"><div class="cc-ic cic">⭐</div><div class="cc-st ccc">STEP 3 · 고급</div><div class="cc-tt">전문 AI 강사 심화</div><div class="cc-dc">중급 수료자 대상. 실전 강의 전략, 지역 맞춤 AI 교육 설계, 전문 강사 인증 취득.</div><div class="cc-tg"><span class="ctg">📅 8주</span><span class="ctg">👥 10명</span><span class="ctg">💰 무료</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:52px 24px 0">
+    <div class="hw">
+      <div class="sh"><div class="sl">NEWS</div><div class="st">화성 AI 시민리더 소식</div><div class="sd">최신 소식과 활동 현황을 확인하세요</div></div>
+      <div class="ng">
+        <div class="nc ft"><div class="nth nb1"><span style="font-size:58px">🏆</span><span class="nth-lb">주요 소식</span></div><div class="nb"><span class="ncat ncb">주요 소식</span><div class="nt">화성시 AI 시민 리더 1기 47명 수료 — "지역 AI 교육 새 지평 열다"</div><div class="ne">화성특례시 AI 혁신학교 AI랩이 운영하는 AI 시민 리더 양성과정 1기가 성황리에 마무리됐다. 47명의 시민 리더들이 지역 학교·기관·기업에 강사로 파견될 예정이다.</div><div class="nm"><span>화성시 AI랩</span><span class="nmd"></span><span>2026.05.15</span><span class="nmd"></span><span>조회 1,284</span></div></div></div>
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <div class="nc"><div class="nth nb2" style="aspect-ratio:16/6"><span style="font-size:36px">📢</span><span class="nth-lb">모집</span></div><div class="nb"><span class="ncat nco">모집 공고</span><div class="nt">2기 AI 시민 리더 모집 — 화성시민 우선 선정</div><div class="ne">참여코드 발급 후 신청. 선착순 마감.</div><div class="nm"><span>2026.05.22</span><span class="nmd"></span><span>조회 892</span></div></div></div>
+          <div class="nc"><div class="nth nb3" style="aspect-ratio:16/6"><span style="font-size:36px">🤝</span><span class="nth-lb">매칭</span></div><div class="nb"><span class="ncat ncp">매칭 소식</span><div class="nt">강사 파견 서비스 동탄·봉담 지역 확대</div><div class="ne">총 156건 강의 매칭 성공, 지역 AI 교육 저변 확대.</div><div class="nm"><span>2026.05.08</span><span class="nmd"></span><span>조회 541</span></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:52px 24px 68px">
+    <div class="hw">
+      <div class="mb">
+        <div class="mb-l"><div class="mb-bg">🏅 AI 시민 리더 수료 후</div><div class="mb-tt">지금 배우신 지식을<br><em>남들에게 뽐내보세요!</em></div><div class="mb-dc">수료 후 강사로 등록하고 지역 학교·기관·기업에 AI 지식을 나눠보세요.</div></div>
+        <div class="mb-r"><div class="mb-card"><span class="mb-ci">🚀</span><div class="mb-ct">강사 매칭 플랫폼</div><div class="mb-cd">수료 후 바로 강사로 등록하고<br>파견 요청을 받아보세요</div><button class="btn-match" onclick="window.open('https://hs-ai-leader.vercel.app','_blank')">매칭 플랫폼 바로가기 →</button></div></div>
+      </div>
+    </div>
+  </div>
+  <footer class="footer">
+    <div class="ft-in">
+      <div><div class="ft-br"><span class="ft-bg">화성시</span><span class="ft-bn">화성 AI 시민리더 잇다(IT-DA)</span></div><p class="ft-dc">화성특례시 AI 혁신학교 AI랩이 운영하는 시민 리더 양성 통합 관리 플랫폼입니다.</p><div class="ft-ct">📍 AI 혁신센터 본원 — 스마트통합운영센터 4층<br>📞 AI스마트전략실 031-5189-1757</div></div>
+      <div class="ft-col"><h4>교육 과정</h4><ul><li><a>STEP 1 · AI 기초</a></li><li><a>STEP 2 · 시민 리더</a></li><li><a>STEP 3 · 전문 강사</a></li></ul></div>
+      <div class="ft-col"><h4>이용 안내</h4><ul><li><a>이용 약관</a></li><li><a>개인정보처리방침</a></li></ul></div>
+    </div>
+    <div class="ft-bt"><span>© 2026 Hwaseong Special City. All rights reserved.</span><span>화성특례시 AI 시민 리더 양성 플랫폼</span></div>
+  </footer>
+</div>
+
+<!-- LOGIN -->
+<div id="view-login" class="view">
+  <div class="auth-pg">
+    <div class="auth-box">
+      <div class="auth-hd"><div class="auth-hd-ic">🤝</div><div class="auth-hd-tt">화성 AI 시민리더 잇다</div><div class="auth-hd-sb">로그인 또는 참여코드로 회원가입하세요</div></div>
+      <div class="auth-bd">
+        <div class="auth-tab">
+          <button class="atb on" id="atb-li" onclick="swAuthTab('li')">로그인</button>
+          <button class="atb" id="atb-rg" onclick="swAuthTab('rg')">참여코드로 회원가입</button>
+        </div>
+        <div id="li-panel">
+
+          <div class="fg">
+            <label class="fl">이메일</label>
+            <input type="email" class="fi" id="li-em" placeholder="이메일을 입력하세요">
+          </div>
+          <div class="fg">
+            <label class="fl">비밀번호</label>
+            <input type="password" class="fi" id="li-pw" placeholder="비밀번호를 입력하세요">
+          </div>
+          <p class="fe" id="li-err" style="display:none">이메일 또는 비밀번호가 올바르지 않습니다</p>
+          <button class="btn-login" id="btn-do-login" onclick="doLogin()">로그인</button>
+          <div class="auth-ft">참여코드를 받으셨나요? <a onclick="swAuthTab('rg')">코드로 회원가입 →</a></div>
+        </div>
+        <div id="rg-panel" style="display:none">
+          <div class="code-box">
+            <div class="cb-tt">🎟️ 운영진으로부터 받은 참여코드를 입력하세요</div>
+            <div class="cb-dc">수강 신청 후 선정된 분께 이메일·문자로 코드가 발송됩니다.</div>
+            <div class="code-wrap">
+              <input type="text" class="code-in" id="rg-code" placeholder="XXXX-XXXX" maxlength="9">
+              <button class="btn-code" onclick="doVerifyCode()">코드 확인</button>
+            </div>
+            <p class="code-err" id="rg-code-err">올바르지 않은 코드입니다. 다시 확인해주세요.</p>
+            <div class="cb-ht">시연용 코드: <strong>AITDA-2601 · AITDA-2602 · AITDA-2603</strong></div>
+          </div>
+          <div class="code-ok" id="rg-code-ok">✅ 코드 인증 완료! 아래 정보를 입력해 계정을 만드세요.</div>
+          <div id="rg-fields" style="display:none">
+            <div class="vbox">
+              <div class="vbox-tt">🏠 화성시 거주 인증</div>
+              <div class="vbox-dc">화성시 거주 여부를 인증해주세요. 운영자 확인 후 최종 승인됩니다.</div>
+              <div class="fg"><label class="fl">화성시 상세 주소</label><input type="text" class="fi" id="rg-addr" placeholder="예) 경기도 화성시 동탄순환대로 200"></div>
+              <div class="frow">
+                <div class="fg"><label class="fl">제출 서류명</label><input type="text" class="fi" id="rg-doc" placeholder="예) 주민등록등본"></div>
+                <div class="fg"><label class="fl">서류 발급일</label><input type="text" class="fi" id="rg-docdt" placeholder="예) 2026.05.27"></div>
+              </div>
+              <p class="fhint">※ 3개월 이내 발급본 · 운영자 확인 후 승인</p>
+            </div>
+            <div class="fg"><label class="fl">이름</label><input type="text" class="fi" id="rg-name" placeholder="홍길동"></div>
+            <div class="fg"><label class="fl">이메일</label><input type="email" class="fi" id="rg-email" placeholder="example@email.com"></div>
+            <div class="fg"><label class="fl">비밀번호 (6자 이상)</label><input type="password" class="fi" id="rg-pw" placeholder="비밀번호 설정"></div>
+            <button class="btn-reg" onclick="doRegister()">회원가입 완료 →</button>
+          </div>
+          <div class="auth-ft" style="margin-top:14px">이미 계정이 있으신가요? <a onclick="swAuthTab('li')">로그인 →</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 수강신청 -->
+<div id="view-apply" class="view">
+  <div class="ap-pg">
+    <div>
+      <div class="stepbar" id="stepbar"></div>
+      <div id="ap1" class="fcard">
+        <div class="fch"><div class="fch-ic">🎓</div><div><div class="fch-tt">교육 과정 선택</div><div class="fch-dc">신청은 누구나 가능합니다. 선정 시 참여코드를 발급해드립니다.</div></div></div>
+        <div class="fcb">
+          <div class="csg">
+            <div class="csc sel" onclick="selCourse(this)"><div class="csc-ck"></div><span class="cs-tg cta">STEP 1 · 초급</span><div class="cs-nm">AI 기초 과정</div><div class="cs-dc">생성형 AI 개념, ChatGPT·Gemini 활용법. 8주·무료.</div></div>
+            <div class="csc" onclick="selCourse(this)"><div class="csc-ck"></div><span class="cs-tg ctb">STEP 2 · 중급</span><div class="cs-nm">AI 시민 리더 양성</div><div class="cs-dc">AI 강사 역량 개발, 커리큘럼 설계, 모의 강의. 12주·무료.</div></div>
+            <div class="csc" onclick="selCourse(this)"><div class="csc-ck"></div><span class="cs-tg ctc">STEP 3 · 고급</span><div class="cs-nm">전문 AI 강사 심화</div><div class="cs-dc">실전 강의 전략, 지역 맞춤 교육 설계, 인증. 8주·무료.</div></div>
+            <div class="csc" onclick="selCourse(this)"><div class="csc-ck"></div><span class="cs-tg ctd">파견</span><div class="cs-nm">강사 파견 요청</div><div class="cs-dc">기관·단체로 AI 시민 리더 강사를 파견 요청합니다.</div></div>
+          </div>
+          <div style="text-align:right"><button class="btn-p" onclick="apStep(2)">다음 → 신청자 정보</button></div>
+        </div>
+      </div>
+      <div id="ap2" class="fcard" style="display:none">
+        <div class="fch"><div class="fch-ic">👤</div><div><div class="fch-tt">신청자 정보 입력</div><div class="fch-dc">회원가입 없이 제출 가능합니다</div></div></div>
+        <div class="fcb">
+          <div class="frow">
+            <div class="fg"><label class="fl">이름</label><input type="text" class="fi" id="ap-name" placeholder="홍길동"><p class="fe" id="ap-name-e">이름을 입력해주세요</p></div>
+            <div class="fg"><label class="fl">생년월일</label><input type="text" class="fi" id="ap-birth" placeholder="19900101"><p class="fe" id="ap-birth-e">생년월일을 입력해주세요</p></div>
+          </div>
+          <div class="frow">
+            <div class="fg"><label class="fl">연락처</label><input type="tel" class="fi" id="ap-phone" placeholder="010-0000-0000"><p class="fe" id="ap-phone-e">연락처를 입력해주세요</p></div>
+            <div class="fg"><label class="fl">이메일</label><input type="email" class="fi" id="ap-email" placeholder="example@email.com"><p class="fe" id="ap-email-e">이메일을 입력해주세요</p></div>
+          </div>
+          <hr class="fdv">
+          <div class="frow">
+            <div class="fg"><label class="fl">거주 지역</label>
+              <select class="fi-sel" id="ap-region"><option value="">지역 선택</option><option>동탄1동</option><option>동탄2동</option><option>동탄3동</option><option>동탄4동</option><option>봉담읍</option><option>향남읍</option><option>남양읍</option><option>비봉면</option><option>기타</option></select>
+              <p class="fe" id="ap-region-e">지역을 선택해주세요</p></div>
+            <div class="fg"><label class="fl">직업·소속</label>
+              <select class="fi-sel" id="ap-job"><option value="">직업 선택</option><option>직장인</option><option>자영업자</option><option>공무원</option><option>교직원</option><option>주부</option><option>학생</option><option>은퇴·무직</option><option>기관·단체 소속</option><option>기타</option></select>
+              <p class="fe" id="ap-job-e">직업을 선택해주세요</p></div>
+          </div>
+          <div class="fg"><label class="fl">AI 활용 경험</label>
+            <select class="fi-sel" id="ap-level"><option value="">경험 수준 선택</option><option>전혀 없음</option><option>ChatGPT 등 기본 사용</option><option>업무·생활에 AI 활용 중</option><option>AI 교육 수강 경험</option><option>AI 관련 업무·연구 종사</option></select>
+            <p class="fe" id="ap-level-e">경험 수준을 선택해주세요</p></div>
+          <hr class="fdv">
+          <div class="vbox">
+            <div class="vbox-tt">🏠 화성시 거주 인증 <span style="background:#FEF3C7;color:#92400E;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:4px">선택 · 우선 선정</span></div>
+            <div class="vbox-dc">화성특례시 거주 시민임을 인증하면 참여코드 발급 시 우선 선정됩니다.<br>서류: 주민등록등본, 주민등록증, 건강보험료 납부확인서 등 (3개월 이내)</div>
+            <div class="frow">
+              <div class="fg"><label class="fl">화성시 상세 주소</label><input type="text" class="fi" id="ap-addr" placeholder="예) 경기도 화성시 동탄순환대로 200"></div>
+              <div class="fg"><label class="fl">제출 서류명</label><input type="text" class="fi" id="ap-doc" placeholder="예) 주민등록등본"></div>
+            </div>
+            <div class="fg"><label class="fl">서류 발급일</label><input type="text" class="fi" id="ap-docdt" placeholder="예) 2026.05.27"><p class="fhint">※ 3개월 이내 발급 서류만 인정됩니다</p></div>
+          </div>
+          <div class="fg"><label class="fl">지원 동기</label><textarea class="fi-ta" id="ap-motiv" placeholder="이 과정에 참여하고 싶은 이유를 30자 이상 작성해주세요."></textarea><p class="fe" id="ap-motiv-e">지원 동기를 30자 이상 입력해주세요</p></div>
+          <div class="btn-row"><button class="btn-o" onclick="apStep(1)">← 이전</button><button class="btn-p" onclick="apStep(3)">다음 → 일정 선택</button></div>
+        </div>
+      </div>
+      <div id="ap3" class="fcard" style="display:none">
+        <div class="fch"><div class="fch-ic">📅</div><div><div class="fch-tt">교육 일정 선택 및 동의</div><div class="fch-dc">원하시는 일정을 선택하고 약관에 동의해주세요</div></div></div>
+        <div class="fcb">
+          <div class="fg">
+            <label class="fl" style="margin-bottom:10px">교육 일정 선택</label>
+            <div class="sch-g">
+              <div class="sch-b" onclick="selSch(this)"><span class="sch-d">6월 2일 (월)</span><span class="sch-t">오전 10:00~12:00</span><span class="sch-s ss-ok">잔여 8석</span></div>
+              <div class="sch-b" onclick="selSch(this)"><span class="sch-d">6월 2일 (월)</span><span class="sch-t">오후 2:00~4:00</span><span class="sch-s ss-ok">잔여 5석</span></div>
+              <div class="sch-b" onclick="selSch(this)"><span class="sch-d">6월 4일 (수)</span><span class="sch-t">오전 10:00~12:00</span><span class="sch-s ss-lw">잔여 2석</span></div>
+              <div class="sch-b" onclick="selSch(this)"><span class="sch-d">6월 4일 (수)</span><span class="sch-t">오후 7:00~9:00</span><span class="sch-s ss-ok">잔여 10석</span></div>
+              <div class="sch-b" onclick="selSch(this)"><span class="sch-d">6월 7일 (토)</span><span class="sch-t">오전 10:00~12:00</span><span class="sch-s ss-lw">잔여 1석</span></div>
+              <div class="sch-b full"><span class="sch-d">6월 9일 (월)</span><span class="sch-t">오전 10:00~12:00</span><span class="sch-s ss-full">마감</span></div>
+            </div>
+            <p class="fhint" style="margin-top:8px">※ 교육 장소: AI 혁신센터 본원 (스마트통합운영센터 4층)</p>
+            <p class="fe" id="ap-sch-e">교육 일정을 선택해주세요</p>
+          </div>
+          <hr class="fdv">
+          <div class="fg">
+            <label class="fl" style="margin-bottom:10px">약관 동의</label>
+            <div class="ag-all" onclick="togAll()"><input type="checkbox" id="ag0"><label class="ag-all-l" for="ag0">전체 동의합니다</label></div>
+            <div class="ag-item" onclick="togAg('ag1')"><input type="checkbox" id="ag1"><div><div class="ag-tt">이용 약관 동의<span class="ag-rq">필수</span></div><p class="ag-dc">화성 AI 시민리더 잇다(IT-DA) 이용약관에 동의합니다.</p></div></div>
+            <div class="ag-item" onclick="togAg('ag2')"><input type="checkbox" id="ag2"><div><div class="ag-tt">개인정보 수집·이용 동의<span class="ag-rq">필수</span></div><p class="ag-dc">교육 운영 목적으로 개인정보를 수집·이용하는 것에 동의합니다.</p></div></div>
+            <div class="ag-item" onclick="togAg('ag3')"><input type="checkbox" id="ag3"><div><div class="ag-tt">출석·수료 기준 확인<span class="ag-rq">필수</span></div><p class="ag-dc">전체 교육 시간의 80% 이상 출석 시 수료증이 발급됩니다.</p></div></div>
+            <div class="ag-item" onclick="togAg('ag4')"><input type="checkbox" id="ag4"><div><div class="ag-tt">거주 인증 정보 활용 동의<span class="ag-op">선택</span></div><p class="ag-dc">제출한 거주 인증 서류를 운영진이 확인하는 것에 동의합니다.</p></div></div>
+            <p class="fe" id="ap-ag-e">필수 약관에 모두 동의해주세요</p>
+          </div>
+          <div class="btn-row"><button class="btn-o" onclick="apStep(2)">← 이전</button><button class="btn-or" onclick="submitApply()">신청서 제출하기 ✓</button></div>
+        </div>
+      </div>
+    </div>
+    <aside class="sidebar">
+      <div class="sc">
+        <div class="sc-hd"><div class="sc-ic sio">📋</div><div class="sc-tt">신청 → 선정 흐름</div></div>
+        <div class="sc-bd">
+          <div class="rm">
+            <div class="rmi"><div class="rml"><div class="rmd" style="background:var(--org)">1</div><div class="rml-ln"></div></div><div class="rmr"><h4>신청서 제출</h4><p>누구나 신청 가능. 회원가입 불필요.</p></div></div>
+            <div class="rmi"><div class="rml"><div class="rmd" style="background:var(--grn)">2</div><div class="rml-ln"></div></div><div class="rmr"><h4>화성시 거주 인증</h4><p>서류 제출 → 운영자 확인. 화성시민 우선.</p></div></div>
+            <div class="rmi"><div class="rml"><div class="rmd" style="background:var(--blu)">3</div><div class="rml-ln"></div></div><div class="rmr"><h4>운영자 검토·선정</h4><p>3~5 영업일 내 결과 안내.</p></div></div>
+            <div class="rmi"><div class="rml"><div class="rmd" style="background:var(--org)">4</div><div class="rml-ln"></div></div><div class="rmr"><h4>참여코드 발급</h4><p>선정자에게 고유 코드 발송.</p></div></div>
+            <div class="rmi"><div class="rml"><div class="rmd" style="background:#7C3AED">5</div></div><div class="rmr" style="padding-bottom:0"><h4>코드 입력 → 회원가입</h4><p>코드 인증 후 계정 생성 → 대시보드.</p></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="sc">
+        <div class="sc-hd"><div class="sc-ic sib">📞</div><div class="sc-tt">문의 안내</div></div>
+        <div class="sc-bd">
+          <div class="ctl">
+            <div class="ctr"><div class="ct-ic">📍</div><div class="ct-tx"><strong>교육 장소</strong>AI 혁신센터 (스마트통합운영센터 4층)</div></div>
+            <div class="ctr"><div class="ct-ic">📞</div><div class="ct-tx"><strong>전화 문의</strong>031-5189-1757</div></div>
+            <div class="ctr"><div class="ct-ic">🕘</div><div class="ct-tx"><strong>운영 시간</strong>평일 09:00~18:00</div></div>
+            <div class="ctr"><div class="ct-ic">✉️</div><div class="ct-tx"><strong>이메일</strong>ai.lab@hwaseong.go.kr</div></div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<!-- 대시보드 -->
+<div id="view-dashboard" class="view">
+  <div class="dash-pg">
+    <div class="db-bn">
+      <div class="db-gd"></div><div class="db-gl"></div>
+      <div class="db-in">
+        <div>
+          <div class="db-ey">나의 시민 리더 양성 현황</div>
+          <div class="db-nm" id="db-nm">이동탄 님, 중급 과정 수강 중입니다!</div>
+          <div class="db-sb" id="db-sb">AI 시민 리더 과정 7주차 진행 중</div>
+        </div>
+        <div class="db-r">
+          <div class="db-badge"><div class="db-bl">현재 단계</div><div class="db-bv" id="db-status">🔵 중급 수강 중</div></div>
+          <div class="db-vb dvpd" id="db-vbadge">⏳ 거주 인증 심사 중</div>
+        </div>
+      </div>
+    </div>
+    <div id="db-vc" class="vc-card vc-pd" style="display:none">
+      <div class="vc-ic">🏠</div>
+      <div class="vc-tx"><div class="vc-tt" id="db-vc-tt">화성시 거주 인증 심사 중</div><div class="vc-dc" id="db-vc-dc">제출하신 서류를 운영자가 확인 중입니다.</div></div>
+      <span class="vc-st" id="db-vc-st">심사 중</span>
+    </div>
+    <div class="match-bn" id="db-match" style="display:none">
+      <div class="mbn-ic">🏅</div>
+      <div class="mbn-tx"><div class="mbn-bg">AI 시민 리더 인증 완료</div><div class="mbn-tt">지금 배우신 지식을 남들에게 뽐내보세요!</div><div class="mbn-dc">모든 과정을 수료하셨습니다. 매칭 플랫폼에서 강사로 등록해보세요! 🚀</div></div>
+      <div class="mbn-r"><button class="btn-goto" onclick="window.open('https://hs-ai-leader.vercel.app','_blank')">🤝 매칭 플랫폼 바로가기 →</button></div>
+    </div>
+    <div class="nc-card" id="db-nc" style="display:none">
+      <div class="nc-hd"><div class="nc-hl"><span>📣</span>다음 수업 안내</div><div class="nc-hr"><span id="nc-week">중급 8주차</span> · 수업까지 <strong id="nc-dday" style="font-family:'Inter',sans-serif">D-8</strong></div></div>
+      <div class="nc-bd">
+        <div style="position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(244,121,32,.2) 0%,transparent 65%);border-radius:50%"></div>
+        <div class="nc-sub" id="nc-subj">8주차 · 모의 강의 1차 발표 및 피드백</div>
+        <div class="nc-gd">
+          <div class="nc-it"><div class="nc-it-ic">📆</div><div class="nc-it-lb">날짜</div><div class="nc-it-vl" id="nc-date">2026년 6월 4일 (수)</div></div>
+          <div class="nc-it"><div class="nc-it-ic">⏰</div><div class="nc-it-lb">시간</div><div class="nc-it-vl" id="nc-time">오전 10:00 ~ 12:00</div></div>
+          <div class="nc-it"><div class="nc-it-ic">📍</div><div class="nc-it-lb">장소</div><div class="nc-it-vl" id="nc-place">AI 혁신센터 3층 교육실 B</div></div>
+        </div>
+        <div class="nc-tip">💡 <span id="nc-tip">수업 전날까지 발표 자료를 준비해 오시면 좋습니다.</span></div>
+      </div>
+    </div>
+    <div class="stp-card">
+      <div class="stp-tt">전체 양성 과정 진행 현황</div>
+      <div class="stp-dc">신청부터 AI 시민 리더 인증까지 총 7단계</div>
+      <div class="stepper" id="db-stepper"></div>
+      <div class="cur-box"><div class="cur-ic" id="db-cur-ic">🚀</div><div style="flex:1"><div class="cur-tt" id="db-cur-tt">중급 과정 수강 중</div><div class="cur-dc" id="db-cur-dc">AI 시민 리더 과정 7주차 진행 중입니다.</div></div><div class="cur-bd" id="db-cur-bd">7 / 12주차</div></div>
+    </div>
+    <div class="lv-grid" id="db-lv"></div>
+    <div class="ck-card">
+      <div class="ck-tt">✅ 시민 리더 인증 체크리스트</div>
+      <div class="ck-dc">아래 항목을 모두 완료하면 화성특례시 공식 AI 시민 리더로 인증됩니다</div>
+      <div class="cl-list" id="db-cl"></div>
+    </div>
+    <div class="two-col">
+      <div class="ic"><div class="ic-hd"><div class="ic-ic icb">📅</div><div class="ic-tt">다가오는 일정</div></div><div class="ic-bd"><div class="ni-list" id="db-ni"></div></div></div>
+      <div class="ic"><div class="ic-hd"><div class="ic-ic ico">🔔</div><div class="ic-tt">최근 알림</div></div><div class="ic-bd"><div class="nf-list" id="db-nf"></div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 알림마당 -->
+<div id="view-notice" class="view">
+  <div class="notice-pg">
+    <div class="notice-hd"><h2>알림마당</h2><p>화성 AI 시민리더 잇다(IT-DA) 최신 소식</p></div>
+    <div class="notice-list">
+      <div class="notice-it"><span class="n-tp ntb">공지</span><span class="n-ttl">2기 AI 시민 리더 양성과정 모집 공고 — 화성시민 우선 선정<span class="n-new">N</span></span><span class="n-dt">2026.05.22</span></div>
+      <div class="notice-it"><span class="n-tp nto">교육</span><span class="n-ttl">화성시 거주 인증 절차 안내<span class="n-new">N</span></span><span class="n-dt">2026.05.20</span></div>
+      <div class="notice-it"><span class="n-tp ntp">소식</span><span class="n-ttl">AI 시민 리더 1기 수료식 성황리 개최</span><span class="n-dt">2026.05.15</span></div>
+      <div class="notice-it"><span class="n-tp ntb">공지</span><span class="n-ttl">AI 혁신센터 5월 운영 일정 안내</span><span class="n-dt">2026.05.10</span></div>
+      <div class="notice-it"><span class="n-tp nto">교육</span><span class="n-ttl">강사 파견 서비스 동탄·봉담 확대 운영</span><span class="n-dt">2026.05.08</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 운영자 -->
+<div id="view-admin" class="view">
+  <div class="admin-pg">
+    <div class="admin-hd"><div><h2>⚙️ 운영자 관리 페이지</h2><p>화성 AI 시민리더 잇다(IT-DA) 통합 운영 관리</p></div><div style="background:var(--orl);border:1px solid rgba(244,121,32,.2);padding:9px 15px;border-radius:var(--rs);font-size:13px;font-weight:600;color:var(--ord)">🔐 운영자: 화성시 AI랩</div></div>
+    <div class="asg">
+      <div class="as asb"><div class="as-lb">전체 신청자</div><span class="as-vl">28</span><div class="as-sb">이번 기수 누적</div><span class="as-ic">👥</span></div>
+      <div class="as asg2"><div class="as-lb">거주 인증 완료</div><span class="as-vl">19</span><div class="as-sb">승인 완료 인원</div><span class="as-ic">🏠</span></div>
+      <div class="as aso"><div class="as-lb">참여코드 발급</div><span class="as-vl">15</span><div class="as-sb">발급 완료</div><span class="as-ic">🎟️</span></div>
+      <div class="as asr"><div class="as-lb">인증 대기</div><span class="as-vl">4</span><div class="as-sb">승인 대기 중</div><span class="as-ic">⏳</span></div>
+    </div>
+    <div class="admin-tab">
+      <button class="atab on" id="atab-v" onclick="swAdTab('v')">🏠 거주 인증 관리</button>
+      <button class="atab" id="atab-c" onclick="swAdTab('c')">🎟️ 참여코드 발급</button>
+      <button class="atab" id="atab-k" onclick="swAdTab('k')">📋 기수 관리</button>
+      <button class="atab" id="atab-m" onclick="swAdTab('m')">👥 수강생 현황</button>
+    </div>
+    <div id="ad-v">
+      <div class="atw"><div class="atw-hd"><div><div class="atw-tt">화성시 거주 인증 요청 목록</div><div class="atw-dc">신청자가 제출한 서류를 확인하고 승인 또는 반려하세요</div></div></div>
+        <table class="atbl"><thead><tr><th>이름</th><th>연락처</th><th>주소</th><th>제출 서류</th><th>발급일</th><th>상태</th><th>처리</th></tr></thead><tbody id="vtb"></tbody></table>
+      </div>
+    </div>
+    <div id="ad-c" style="display:none">
+      <div class="atw"><div class="atw-hd"><div><div class="atw-tt">참여코드 발급 관리</div><div class="atw-dc">거주 인증 완료 후 선정된 인원에게 참여코드를 발급하세요</div></div><button class="btn-add" onclick="issueAll()">+ 일괄 발급</button></div>
+        <table class="atbl"><thead><tr><th>이름</th><th>거주 인증</th><th>선정 과정</th><th>참여코드</th><th>발급 상태</th><th>처리</th></tr></thead><tbody id="ctb"></tbody></table>
+      </div>
+    </div>
+    <div id="ad-k" style="display:none">
+      <div class="coh"><div class="coh-hd"><div><span class="coh-bg cb-op">● 모집 중</span><div class="coh-tt">2026년 하반기 2기 AI 시민 리더 양성과정</div><div class="coh-sb">모집: 2026.05.22 ~ 2026.06.20 · 교육 시작: 2026.07.01</div></div><div class="coh-acts"><button class="btn-coh bco" onclick="showM('m-all')">🎟️ 코드 일괄발급</button><button class="btn-coh bcc" onclick="alert('마감 처리되었습니다.')">마감 처리</button></div></div><div class="coh-st"><div class="cs-st"><span class="cs-n">28</span><span class="cs-l">총 신청자</span></div><div class="cs-st"><span class="cs-n" style="color:var(--grd)">19</span><span class="cs-l">거주 인증 완료</span></div><div class="cs-st"><span class="cs-n" style="color:var(--blu)">15</span><span class="cs-l">선정 인원</span></div><div class="cs-st"><span class="cs-n" style="color:var(--ord)">20</span><span class="cs-l">모집 정원</span></div></div></div>
+      <div class="coh" style="opacity:.6"><div class="coh-hd"><div><span class="coh-bg cb-cl">● 종료</span><div class="coh-tt">2026년 상반기 1기 AI 시민 리더 양성과정</div><div class="coh-sb">교육: 2026.01.15 ~ 2026.04.30 · 수료자: 47명</div></div></div><div class="coh-st"><div class="cs-st"><span class="cs-n">52</span><span class="cs-l">총 신청자</span></div><div class="cs-st"><span class="cs-n" style="color:var(--grd)">48</span><span class="cs-l">거주 인증 완료</span></div><div class="cs-st"><span class="cs-n" style="color:var(--blu)">50</span><span class="cs-l">선정 인원</span></div><div class="cs-st"><span class="cs-n" style="color:var(--ord)">47</span><span class="cs-l">최종 수료</span></div></div></div>
+    </div>
+    <div id="ad-m" style="display:none">
+      <div class="atw"><div class="atw-hd"><div><div class="atw-tt">수강생 전체 현황</div><div class="atw-dc">현재 수강 중인 회원의 진행 상태를 확인하세요</div></div></div>
+        <table class="atbl"><thead><tr><th>이름</th><th>거주 인증</th><th>현재 과정</th><th>진행 상태</th><th>출석률</th><th>다음 수업</th></tr></thead><tbody>
+          <tr><td><strong>김화성</strong></td><td><span class="sp sp-ok">✓ 화성시민</span></td><td>초급 과정</td><td><span class="sp sp-ac">수강 중 (4/8주)</span></td><td>87%</td><td>6월 4일</td></tr>
+          <tr><td><strong>이동탄</strong></td><td><span class="sp sp-pd">⏳ 심사 중</span></td><td>중급 과정</td><td><span class="sp sp-ac">수강 중 (7/12주)</span></td><td>92%</td><td>6월 4일</td></tr>
+          <tr><td><strong>박봉담</strong></td><td><span class="sp sp-ok">✓ 화성시민</span></td><td>전 과정</td><td><span class="sp sp-dn">시민리더 인증 완료</span></td><td>96%</td><td>-</td></tr>
+          <tr><td><strong>최향남</strong></td><td><span class="sp sp-ok">✓ 화성시민</span></td><td>-</td><td><span class="sp sp-wt">심사 중</span></td><td>-</td><td>-</td></tr>
+          <tr><td><strong>정동탄</strong></td><td><span class="sp sp-ok">✓ 화성시민</span></td><td>초급 과정</td><td><span class="sp sp-ac">수강 중 (2/8주)</span></td><td>100%</td><td>6월 2일</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 모달들 -->
+<div class="m-ov" id="m-apply"><div class="modal"><div class="m-ic mio">📋</div><h2>신청이 접수되었습니다!</h2><p class="modal-dc">신청서가 정상 접수되었습니다.<br>운영진이 거주 인증 서류를 확인 후 3~5 영업일 내 결과를 안내드립니다.</p><div class="m-num-box"><p>신청 접수 번호</p><strong id="m-num">2026-0527-0001</strong></div><p style="font-size:12.5px;color:var(--txm);margin-bottom:16px;line-height:1.7">선정되신 분께는 <strong style="color:var(--ord)">참여코드</strong>가 이메일·문자로 발송됩니다.</p><button class="btn-m btn-mb" onclick="closeM('m-apply');goView('home')">확인</button></div></div>
+<div class="m-ov" id="m-vok"><div class="modal"><div class="m-ic mig">✅</div><h2>거주 인증 승인 완료</h2><p class="modal-dc">화성시 거주 인증이 승인되었습니다.<br>해당 신청자에게 승인 알림이 발송됩니다.</p><button class="btn-m btn-mg" onclick="closeM('m-vok')">확인</button></div></div>
+<div class="m-ov" id="m-code"><div class="modal"><div class="m-ic mib">🎟️</div><h2>참여코드 발급 완료</h2><p class="modal-dc">해당 신청자에게 참여코드가 발급되었습니다.<br>이메일·문자로 자동 발송됩니다.</p><div class="m-code-box"><p>발급된 참여코드</p><strong id="m-issued">AITDA-2609</strong></div><button class="btn-m btn-mb" onclick="closeM('m-code')">확인</button></div></div>
+<div class="m-ov" id="m-all"><div class="modal"><div class="m-ic mio">🎟️</div><h2>선정자 코드 일괄 발급</h2><p class="modal-dc">거주 인증 완료된 <strong>19명</strong> 중 선정된 <strong>15명</strong>에게 참여코드를 일괄 발급합니다.</p><div style="background:var(--bg);border-radius:var(--rs);padding:13px;margin-bottom:16px;text-align:left"><div style="font-size:12px;color:var(--txm);margin-bottom:7px">발급 예정 코드</div><div style="font-size:13px;font-family:Inter,sans-serif;color:var(--blu);font-weight:700;line-height:2">AITDA-2605 ~ AITDA-2619 (총 15개)</div></div><button class="btn-m btn-mo" onclick="doIssueAll()">일괄 발급 실행</button></div></div>
+
+<script>
+var ACCS={'inter@test.com':{pw:'1234',name:'이동탄',av:'이',state:5,vs:'pending'},'done@test.com':{pw:'1234',name:'박봉담',av:'박',state:8,vs:'verified'},'basic@test.com':{pw:'1234',name:'김화성',av:'김',state:3,vs:'verified'},'new@test.com':{pw:'1234',name:'최향남',av:'최',state:1,vs:'verified'},'admin@hwaseong.go.kr':{pw:'admin',name:'운영자',av:'관',state:-1,role:'admin',vs:'admin'}};
+var CODES={'AITDA-2601':{name:'김화성',state:3,vs:'verified',addr:'경기도 화성시 향남읍 발안로 10',doc:'주민등록증',docdt:'2026.04.20'},'AITDA-2602':{name:'이동탄',state:5,vs:'pending',addr:'경기도 화성시 동탄4동 동탄대로 200',doc:'주민등록등본',docdt:'2026.05.10'},'AITDA-2603':{name:'박봉담',state:8,vs:'verified',addr:'경기도 화성시 봉담읍 와우리 55',doc:'주민등록등본',docdt:'2026.03.15'}};
+var VR=[{name:'이동탄',phone:'010-3344-5566',addr:'경기도 화성시 동탄4동 동탄대로 200',doc:'주민등록등본',dt:'2026.05.10',st:'pending'},{name:'김민준',phone:'010-1234-5678',addr:'경기도 화성시 동탄순환대로 55',doc:'주민등록등본',dt:'2026.05.20',st:'pending'},{name:'이서연',phone:'010-2345-6789',addr:'경기도 화성시 봉담읍 와우리 123',doc:'주민등록증',dt:'2026.05.18',st:'pending'},{name:'박지우',phone:'010-3456-7890',addr:'경기도 화성시 향남읍 발안로 45',doc:'건강보험료 납부확인서',dt:'2026.05.15',st:'verified'},{name:'최수아',phone:'010-4567-8901',addr:'경기도 화성시 동탄4동 메타폴리스로 77',doc:'주민등록등본',dt:'2026.05.22',st:'pending'}];
+var CR=[{name:'이동탄',ok:false,course:'중급 과정',code:'AITDA-2602',issued:true},{name:'김민준',ok:false,course:'초급 과정',code:'',issued:false},{name:'이서연',ok:false,course:'중급 과정',code:'',issued:false},{name:'박지우',ok:true,course:'초급 과정',code:'AITDA-2607',issued:true},{name:'최수아',ok:false,course:'초급 과정',code:'',issued:false}];
+var STP=[{name:'신청 완료',ic:'📋'},{name:'심사 진행',ic:'🔍'},{name:'합격 통보',ic:'✉️'},{name:'초급 과정',ic:'🌱'},{name:'중급 과정',ic:'🚀'},{name:'고급 과정',ic:'⭐'},{name:'리더 인증',ic:'🏅'}];
+var ST=[
+ {sd:-1,si:-1,st:'⬜ 신청 전',cur:{ic:'📝',tt:'신청이 필요합니다',dc:'신청서를 제출하면 운영진 검토 후 합격 통보를 받게 됩니다.',bd:'신청하기 →'},lv:[0,0,0],ck:[0,0,0,0,0],nc:null,ni:[{d:'상시',t:'양성과정 신청 가능',dd:'신청 가능'}],nf:[{c:'ndb',t:'<strong>2기 모집 시작</strong>',tm:'방금'}]},
+ {sd:0,si:1,st:'🔍 심사 진행 중',cur:{ic:'🔍',tt:'신청서 심사 중',dc:'운영진이 신청서와 거주 인증 서류를 검토 중입니다.',bd:'#2026-0042'},lv:[0,0,0],ck:[1,0,0,0,0],nc:null,ni:[{d:'~ 6.10',t:'심사 결과 발표 예정',dd:'D-14'}],nf:[{c:'ndo',t:'<strong>신청 접수 완료</strong>',tm:'방금'}]},
+ {sd:0,si:1,st:'🔍 심사 진행 중',cur:{ic:'🔍',tt:'서류 심사 중',dc:'거주 인증 서류를 검토 중입니다.',bd:'#2026-0043'},lv:[0,0,0],ck:[1,0,0,0,0],nc:null,ni:[{d:'~ 6.10',t:'심사 결과 발표',dd:'D-14'}],nf:[{c:'ndb',t:'<strong>심사 중</strong>',tm:'2일 전'}]},
+ {sd:2,si:3,st:'🟢 초급 수강 중',cur:{ic:'📚',tt:'초급 과정 수강 중',dc:'AI 기초 과정 4주차 진행 중입니다.',bd:'4 / 8주차'},lv:[50,0,0],ck:[1,0,0,0,0],nc:{subj:'4주차 · 이미지 생성 AI 실습',date:'2026년 6월 4일 (수)',time:'오전 10:00 ~ 12:00',place:'AI 혁신센터 3층 교육실 A',week:'초급 4주차',tip:'오늘 실습할 Midjourney에 미리 가입해 오시면 좋습니다.'},ni:[{d:'6월 4일(수)',t:'초급 4주차 · 이미지 AI 실습',dd:'D-8'},{d:'6월 11일(수)',t:'초급 5주차 · 업무 자동화',dd:'D-15'}],nf:[{c:'ndb',t:'<strong>4주차 수업 안내</strong> — 6월 4일 오전 10시.',tm:'방금'},{c:'ndo',t:'<strong>출석 확인</strong> — 3주차 정상 처리.',tm:'3일 전'}]},
+ {sd:3,si:4,st:'✅ 초급 수료 완료',cur:{ic:'🎉',tt:'초급 과정 수료 완료!',dc:'AI 기초 과정을 수료했습니다. 중급 과정을 신청해 다음 단계로 나아가세요.',bd:'중급 신청하기 →'},lv:[100,0,0],ck:[1,1,0,0,0],nc:null,ni:[{d:'상시',t:'중급 과정 신청 가능',dd:'신청 가능'}],nf:[{c:'ndo',t:'<strong>초급 수료 완료</strong>',tm:'방금'}]},
+ {sd:3,si:4,st:'🔵 중급 수강 중',cur:{ic:'🚀',tt:'중급 과정 수강 중',dc:'AI 시민 리더 과정 7주차 진행 중입니다. 모의 강의 발표를 준비해주세요.',bd:'7 / 12주차'},lv:[100,58,0],ck:[1,1,0,0,0],nc:{subj:'8주차 · 모의 강의 1차 발표 및 피드백',date:'2026년 6월 4일 (수)',time:'오전 10:00 ~ 12:00',place:'AI 혁신센터 3층 교육실 B',week:'중급 8주차',tip:'수업 전날까지 발표 자료를 준비해 오시면 더욱 원활한 피드백을 받으실 수 있습니다.'},ni:[{d:'6월 4일(수)',t:'중급 8주차 · 모의 강의 1차 발표',dd:'D-8'},{d:'6월 18일(수)',t:'중급 9주차 · 강의 피드백',dd:'D-22'}],nf:[{c:'ndb',t:'<strong>8주차 수업 안내</strong> — 6월 4일 오전 10시.',tm:'방금'},{c:'ndo',t:'<strong>중간 평가 결과</strong> — 87점 합격.',tm:'1일 전'}]},
+ {sd:4,si:5,st:'✅ 중급 수료 완료',cur:{ic:'🎉',tt:'중급 과정 수료 완료!',dc:'AI 시민 리더 과정을 수료했습니다. 고급 과정을 신청해 전문 강사로 성장하세요.',bd:'고급 신청하기 →'},lv:[100,100,0],ck:[1,1,1,0,0],nc:null,ni:[{d:'상시',t:'고급 과정 신청 가능',dd:'신청 가능'}],nf:[{c:'ndo',t:'<strong>중급 수료 완료</strong>',tm:'방금'}]},
+ {sd:4,si:5,st:'⭐ 고급 수강 중',cur:{ic:'⭐',tt:'고급 과정 수강 중',dc:'전문 AI 강사 심화 과정 4주차 진행 중입니다.',bd:'4 / 8주차'},lv:[100,100,50],ck:[1,1,1,0,0],nc:{subj:'5주차 · 실전 강의 시뮬레이션',date:'2026년 6월 11일 (수)',time:'오후 2:00 ~ 5:00',place:'AI 혁신센터 4층 실습실',week:'고급 5주차',tip:'30분 강의 자료를 준비해주세요.'},ni:[{d:'6월 11일(수)',t:'고급 5주차 · 실전 강의 시뮬레이션',dd:'D-15'}],nf:[{c:'ndb',t:'<strong>5주차 수업 안내</strong>',tm:'방금'}]},
+ {sd:6,si:-1,st:'🏅 시민 리더 인증 완료',cur:{ic:'🏅',tt:'AI 시민 리더 인증 완료!',dc:'모든 과정을 수료하고 공식 AI 시민 리더로 인증되었습니다. 매칭 플랫폼에서 강사 활동을 시작하세요!',bd:'강사 활동 시작 →'},lv:[100,100,100],ck:[1,1,1,1,1],nc:null,ni:[{d:'상시',t:'강사 파견 신청 가능',dd:'활동 중'}],nf:[{c:'ndo',t:'<strong>인증 완료</strong> — 인증서 발급.',tm:'방금'},{c:'ndg',t:'<strong>매칭 플랫폼</strong> — 강사 파견 신청 가능.',tm:'방금'}]}
+];
+var LV=[
+ {ic:'🌱',sc:'la',bc:'lia',step:'STEP 1 · 초급',tt:'AI 기초 과정',dc:'생성형 AI 개념, ChatGPT·Gemini 활용법, 일상 속 AI 도구 실습',wk:'8주·40시간',fill:'fo',pct:'po',dT:'✓ 수료 완료 · 2026.03.28',iT:function(p){return p+'% 완료';},wT:'합격 후 시작',lT:'합격 후 시작',d:['AI 개론 및 생성형 AI 이해','ChatGPT·Gemini 기초 활용','이미지 생성 AI 실습','업무 자동화 도구','AI 윤리 및 활용 가이드','최종 프로젝트 발표'],ig:[],nx:[]},
+ {ic:'🚀',sc:'lb',bc:'lib',step:'STEP 2 · 중급',tt:'AI 시민 리더 양성 과정',dc:'AI 교육 강사 역량 개발, 커리큘럼 설계, 모의 강의 실습',wk:'12주·60시간',fill:'fb',pct:'pb2',dT:'✓ 수료 완료 · 2026.08.01',iT:function(p){return p+'% 완료';},wT:'초급 수료 후 신청',lT:'🔒 초급 수료 필요',d:['리더십 이론','교육 대상 분석','AI 콘텐츠 개발','강의 기법·퍼실리테이션','중간 평가 통과 (87점)'],ig:['AI 커리큘럼 설계 실습','모의 강의 1차 발표 준비'],nx:['모의 강의 2차 발표','현장 강의 실습','최종 발표 및 수료']},
+ {ic:'⭐',sc:'lc',bc:'lic',step:'STEP 3 · 고급',tt:'전문 AI 강사 심화 과정',dc:'실전 강의 전략, 지역 맞춤 AI 교육 설계, 전문 강사 인증',wk:'8주·48시간',fill:'fp',pct:'pb2',dT:'✓ 수료 완료 · 2026.10.10',iT:function(p){return p+'% 완료';},wT:'중급 수료 후 신청',lT:'🔒 중급 수료 필요',d:[],ig:[],nx:['실전 강의 전략 수립','지역 맞춤 AI 교육 설계','현장 강의 파견 실습','강의 포트폴리오 제작','최종 발표 및 전문 강사 인증']}
+];
+var CKD=[{nm:'수강 신청 완료',sb:'양성과정 신청서 제출 및 접수 확인'},{nm:'초급 과정 수료',sb:'AI 기초 과정 (8주) · 출석 80% 이상 · 최종 평가 통과'},{nm:'중급 과정 수료',sb:'AI 시민 리더 과정 (12주) · 모의 강의 발표 포함'},{nm:'고급 과정 수료',sb:'전문 AI 강사 심화 과정 (8주) · 최종 실습 발표'},{nm:'AI 시민 리더 공식 인증',sb:'화성특례시장 명의 인증서 발급 · 강사 활동 자격 취득'}];
+
+var CU=null,cdCnt=2609;
+function G(id){return document.getElementById(id);}
+function T(id,v){var e=G(id);if(e)e.textContent=v;}
+function S(id,v){var e=G(id);if(e)e.style.display=v;}
+
+function goView(v){
+  var els=document.querySelectorAll('.view');
+  for(var i=0;i<els.length;i++)els[i].classList.remove('active');
+  var el=G('view-'+v);if(el)el.classList.add('active');
+  var nls=['home','apply','dash','notice','admin'];
+  for(var i=0;i<nls.length;i++){var b=G('nl-'+nls[i]);if(b)b.classList.remove('on');}
+  var m={home:'nl-home',apply:'nl-apply',dashboard:'nl-dash',notice:'nl-notice',admin:'nl-admin',login:'nl-home'};
+  if(m[v]){var b=G(m[v]);if(b)b.classList.add('on');}
+  window.scrollTo(0,0);
+}
+function requireLogin(d){if(CU){if(d==='dashboard')renderDash();goView(d);}else goView('login');}
+function requireAdmin(){if(CU&&CU.role==='admin'){goView('admin');renderAdmin();}else{alert('운영자 계정으로 로그인해주세요.\n(admin@hwaseong.go.kr / admin)');goView('login');}}
+function swAuthTab(t){
+  G('atb-li').classList.toggle('on',t==='li');
+  G('atb-rg').classList.toggle('on',t==='rg');
+  S('li-panel',t==='li'?'block':'none');
+  S('rg-panel',t==='rg'?'block':'none');
+}
+function doLogin(){
+  var em=G('li-em').value.trim(),pw=G('li-pw').value.trim(),err=G('li-err');
+  if(ACCS[em]&&ACCS[em].pw===pw){
+    CU={};for(var k in ACCS[em])CU[k]=ACCS[em][k];
+    S('li-err','none');G('li-em').classList.remove('err');
+    setLI();
+    if(CU.role==='admin'){goView('admin');renderAdmin();}
+    else{renderDash();goView('dashboard');}
+  }else{S('li-err','block');G('li-em').classList.add('err');}
+}
+function doVerifyCode(){
+  var code=G('rg-code').value.trim().toUpperCase();
+  if(CODES[code]){
+    S('rg-code-err','none');S('rg-code-ok','block');S('rg-fields','block');
+    var cd=CODES[code];
+    G('rg-name').value=cd.name;G('rg-addr').value=cd.addr||'';
+    G('rg-doc').value=cd.doc||'주민등록등본';G('rg-docdt').value=cd.docdt||'2026.05.27';
+  }else{S('rg-code-err','block');S('rg-code-ok','none');S('rg-fields','none');}
+}
+function doRegister(){
+  var nm=G('rg-name').value.trim(),em=G('rg-email').value.trim(),pw=G('rg-pw').value.trim();
+  var code=G('rg-code').value.trim().toUpperCase(),addr=G('rg-addr').value.trim();
+  if(!nm||!em||pw.length<6){alert('모든 항목을 올바르게 입력해주세요.');return;}
+  if(!CODES[code]){alert('코드 인증을 먼저 해주세요.');return;}
+  CU={name:nm,av:nm[0],state:CODES[code].state,vs:addr?'pending':'none'};
+  setLI();renderDash();goView('dashboard');
+}
+function setLI(){
+  S('nav-guest','none');S('nav-user','flex');
+  T('nav-av',CU.av);T('nav-un',CU.name);
+  var vb=G('nav-vb');if(vb)vb.style.display=CU.vs==='verified'?'inline-flex':'none';
+}
+function doLogout(){CU=null;S('nav-guest','flex');S('nav-user','none');var vb=G('nav-vb');if(vb)vb.style.display='none';goView('home');}
+
+function renderDash(){
+  if(!CU||CU.role==='admin')return;
+  var s=ST[CU.state];
+  var sb=['신청 전입니다.','신청이 완료되었습니다!','심사가 진행 중입니다.','초급 과정 수강 중입니다!','초급 과정을 수료했습니다! 🎉','중급 과정 수강 중입니다!','중급 과정을 수료했습니다! 🎉','고급 과정 수강 중입니다!','AI 시민 리더 인증을 완료했습니다! 🏅'];
+  T('db-nm',CU.name+' 님, '+sb[CU.state]);T('db-sb',s.cur.dc);T('db-status',s.st);
+  T('db-cur-ic',s.cur.ic);T('db-cur-tt',s.cur.tt);T('db-cur-dc',s.cur.dc);T('db-cur-bd',s.cur.bd);
+  var vs=CU.vs||'none',vb=G('db-vbadge'),vc=G('db-vc');
+  if(vs==='verified'){if(vb){vb.className='db-vb dvok';vb.textContent='✓ 화성시민 인증 완료';}if(vc){vc.style.display='flex';vc.className='vc-card vc-ok';T('db-vc-tt','화성시 거주 인증 완료');T('db-vc-dc','화성특례시 거주 시민으로 인증되었습니다.');T('db-vc-st','✓ 인증 완료');}}
+  else if(vs==='pending'){if(vb){vb.className='db-vb dvpd';vb.textContent='⏳ 거주 인증 심사 중';}if(vc){vc.style.display='flex';vc.className='vc-card vc-pd';T('db-vc-tt','화성시 거주 인증 심사 중');T('db-vc-dc','제출하신 서류를 운영자가 확인 중입니다. 승인 시 화성시민 인증 마크가 표시됩니다.');T('db-vc-st','심사 중');}}
+  else{if(vb){vb.className='db-vb dvno';vb.textContent='거주 미인증';}if(vc)vc.style.display='none';}
+  var mb=G('db-match');if(mb)mb.style.display=CU.state===8?'flex':'none';
+  var nc=s.nc,ncEl=G('db-nc');
+  if(nc&&ncEl){ncEl.style.display='block';T('nc-subj',nc.subj);T('nc-date',nc.date);T('nc-time',nc.time);T('nc-place',nc.place);T('nc-week',nc.week);T('nc-tip',nc.tip);}
+  else if(ncEl)ncEl.style.display='none';
+  var sh='';
+  for(var i=0;i<STP.length;i++){var st=STP[i],dn=i<=s.sd,ig=i===s.si;var cc=dn?'si-dn':ig?'si-ig':'si-wt',ci=dn?'✓':ig?st.ic:(i+1),dt='',dc='dt-wt';if(dn){dt=i<3?['2026.04.01','2026.04.05','2026.04.10'][i]:'수료 완료';dc='dt-dn';}else if(ig){dt='진행 중';dc='dt-ig';}sh+='<div class="stp-col"><div class="stp-ci '+cc+'">'+ci+'</div><div class="stp-nm'+(dn||ig?'':' mt')+'">'+st.name+'</div><div class="stp-sb">'+st.ic+'</div>'+(dt?'<div class="stp-dt '+dc+'">'+dt+'</div>':'')+'</div>';if(i<STP.length-1){var lc=i<s.sd?'cn-dn':i===s.sd&&s.si>-1?'cn-ig':'cn-wt';sh+='<div class="stp-cn '+lc+'"></div>';}}
+  G('db-stepper').innerHTML=sh;
+  function mk(t,bg,fc,ic){return '<div class="td-it" style="color:'+fc+'"><div class="td-ic" style="background:'+bg+'">'+ic+'</div>'+t+'</div>';}
+  var lh='';
+  for(var i=0;i<LV.length;i++){var lv=LV[i],p=s.lv[i],dn=p===100,ig=p>0&&p<100,lk=p===0&&i>0&&s.lv[i-1]<100;var cc=dn?'lvc-dn':ig?'lvc-ig':lk?'lvc-lk':'',bg=dn?'lb-dn':ig?'lb-ig':'lb-wt',bt=dn?'✓ 수료 완료':ig?'수강 중':lk?'이전 단계 수료 필요':'합격 후 시작',ft=dn?lv.dT:ig?lv.iT(p):lk?lv.lT:lv.wT,fc=dn?'lv-ft-tx ok':'lv-ft-tx',pc=dn||ig?lv.pct:'';var td='';if(dn&&lv.d.length){td='<div class="td-sec"><div class="td-lb" style="color:var(--ord)">✅ 완료</div>';for(var j=0;j<lv.d.length;j++)td+=mk(lv.d[j],'var(--org)','var(--txm)','✓');td+='</div>';}else if(ig){if(lv.d.length){td+='<div class="td-sec"><div class="td-lb" style="color:var(--txm)">완료</div>';for(var j=0;j<lv.d.length;j++)td+=mk(lv.d[j],'var(--bg)','var(--txm)','✓');td+='</div>';}if(lv.ig.length){td+='<div class="td-sec"><div class="td-lb" style="color:var(--blu)">🔵 진행 중</div>';for(var j=0;j<lv.ig.length;j++)td+=mk(lv.ig[j],'var(--blu)','var(--blu)','→');td+='</div>';}if(lv.nx.length){td+='<div class="td-sec"><div class="td-lb" style="color:var(--txm)">📋 앞으로</div>';for(var j=0;j<lv.nx.length;j++)td+=mk(lv.nx[j],'var(--bor)','var(--txm)','·');td+='</div>';}}else if(!lk&&lv.nx.length){td='<div class="td-sec"><div class="td-lb" style="color:var(--txm)">📋 배울 내용</div>';for(var j=0;j<lv.nx.length;j++)td+=mk(lv.nx[j],'var(--bor)','var(--txm)','·');td+='</div>';}lh+='<div class="lv-card '+cc+'"><div class="lv-top"><div class="lv-ibx '+lv.bc+'">'+lv.ic+'</div><span class="lv-bg '+bg+'">'+bt+'</span></div><div class="lv-st '+lv.sc+'">'+lv.step+'</div><div class="lv-tt">'+lv.tt+'</div><div class="lv-dc">'+lv.dc+'</div><div style="display:flex;gap:8px;margin-bottom:10px"><span style="font-size:11px;color:var(--txs)">📅 '+lv.wk+'</span><span style="font-size:11px;color:var(--txs)">💰 무료</span></div><div class="pb"><div class="pbf '+lv.fill+'" style="width:'+p+'%"></div></div><div class="lv-ft"><span class="'+fc+'">'+ft+'</span><span class="lv-pct '+pc+'">'+p+'%</span></div>'+td+'</div>';}
+  G('db-lv').innerHTML=lh;
+  var dc=0;for(var i=0;i<s.ck.length;i++)if(s.ck[i])dc++;
+  var cl='';for(var i=0;i<CKD.length;i++){var c=CKD[i],v=s.ck[i],ig=v===0&&i===dc,ic=v?'cli-dn':ig?'cli-ig':'cli-wt',ic2=v?'cl-dn':ig?'cl-ig':'cl-wt',ci=v?'✓':ig?'→':(i+1),rc=v?'cr-dn':ig?'cr-ig':'cr-wt',rt=v?'완료':ig?'진행 중':'대기';cl+='<div class="cli '+ic+'"><div class="cl-ic '+ic2+'">'+ci+'</div><div style="flex:1"><div class="cl-nm">'+c.nm+'</div><div class="cl-sb">'+c.sb+'</div></div><div class="cl-rt '+rc+'">'+rt+'</div></div>';}
+  G('db-cl').innerHTML=cl;
+  var ni='';for(var i=0;i<s.ni.length;i++)ni+='<div class="ni"><span class="ni-dt">'+s.ni[i].d+'</span><span class="ni-tx">'+s.ni[i].t+'</span><span class="ni-dd">'+s.ni[i].dd+'</span></div>';G('db-ni').innerHTML=ni;
+  var nf='';for(var i=0;i<s.nf.length;i++)nf+='<div class="nfi"><div class="nd '+s.nf[i].c+'"></div><div class="nf-tx">'+s.nf[i].t+'</div><div class="nf-tm">'+s.nf[i].tm+'</div></div>';G('db-nf').innerHTML=nf;
+}
+
+function renderAdmin(){renderVtb();renderCtb();swAdTab('v');}
+function swAdTab(t){var ts=['v','c','k','m'];for(var i=0;i<ts.length;i++){var b=G('atab-'+ts[i]),p=G('ad-'+ts[i]);if(b)b.classList.toggle('on',ts[i]===t);if(p)p.style.display=ts[i]===t?'block':'none';}}
+function renderVtb(){var tb=G('vtb');if(!tb)return;var h='';for(var i=0;i<VR.length;i++){var r=VR[i];h+='<tr><td><strong>'+r.name+'</strong></td><td style="font-size:12px">'+r.phone+'</td><td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px">'+r.addr+'</td><td>'+r.doc+'</td><td>'+r.dt+'</td><td><span class="sp '+(r.st==='verified'?'sp-ok':'sp-pd')+'">'+(r.st==='verified'?'✓ 승인':'⏳ 심사 중')+'</span></td><td>'+(r.st==='pending'?'<button class="btn-tb btap" onclick="approveV('+i+')">승인</button><button class="btn-tb btrj" onclick="rejectV('+i+')">반려</button>':'<span style="font-size:12px;color:var(--txm)">처리 완료</span>')+'</td></tr>';}tb.innerHTML=h;}
+function approveV(i){VR[i].st='verified';renderVtb();showM('m-vok');}
+function rejectV(i){if(confirm(VR[i].name+' 님의 거주 인증을 반려하시겠습니까?')){VR[i].st='rejected';renderVtb();alert('반려 처리되었습니다.');}}
+function renderCtb(){var tb=G('ctb');if(!tb)return;var h='';for(var i=0;i<CR.length;i++){var r=CR[i];h+='<tr><td><strong>'+r.name+'</strong></td><td><span class="sp '+(r.ok?'sp-ok':'sp-pd')+'">'+(r.ok?'✓ 화성시민':'⏳ 심사 중')+'</span></td><td>'+r.course+'</td><td style="font-family:Inter,sans-serif;font-weight:700;color:var(--blu)">'+(r.code||'-')+'</td><td><span class="sp '+(r.issued?'sp-dn':'sp-wt')+'">'+(r.issued?'발급 완료':'미발급')+'</span></td><td>'+(r.ok&&!r.issued?'<button class="btn-tb btis" onclick="issueCode('+i+')">코드 발급</button>':r.issued?'<span style="font-size:12px;color:var(--txm)">발급 완료</span>':'<span style="font-size:12px;color:var(--txm)">인증 필요</span>')+'</td></tr>';}tb.innerHTML=h;}
+function issueCode(i){cdCnt++;CR[i].code='AITDA-'+cdCnt;CR[i].issued=true;T('m-issued',CR[i].code);renderCtb();showM('m-code');}
+function issueAll(){for(var i=0;i<CR.length;i++){if(CR[i].ok&&!CR[i].issued){cdCnt++;CR[i].code='AITDA-'+cdCnt;CR[i].issued=true;}}renderCtb();}
+function doIssueAll(){closeM('m-all');issueAll();alert('코드 일괄 발급이 완료되었습니다.');}
+function showM(id){var e=G(id);if(e)e.classList.add('show');}
+function closeM(id){var e=G(id);if(e)e.classList.remove('show');}
+
+function renderStepBar(cur){var steps=['과정 선택','신청자 정보','일정·동의'],h='';for(var i=0;i<steps.length;i++){var dn=i<cur-1,act=i===cur-1;h+='<div class="sbi'+(act?' act':dn?' dn':'')+'"><div class="sbc">'+(dn?'✓':(i+1))+'</div><span class="sbl">'+steps[i]+'</span></div>';if(i<steps.length-1)h+='<div class="sb-ln'+(dn?' dn':'')+'"></div>';}G('stepbar').innerHTML=h;}
+function apStep(n){if(n===3&&!valAp2())return;var ids=['ap1','ap2','ap3'];for(var i=0;i<ids.length;i++)G(ids[i]).style.display=i===n-1?'block':'none';renderStepBar(n);document.querySelector('.ap-pg').scrollIntoView({behavior:'smooth'});}
+function valAp2(){var ok=true;var fs=[['ap-name','ap-name-e'],['ap-birth','ap-birth-e'],['ap-phone','ap-phone-e'],['ap-email','ap-email-e'],['ap-region','ap-region-e'],['ap-job','ap-job-e'],['ap-level','ap-level-e']];for(var i=0;i<fs.length;i++){var el=G(fs[i][0]),er=G(fs[i][1]);if(!el||!el.value.trim()){if(el)el.classList.add('err');if(er)er.classList.add('show');ok=false;}else{el.classList.remove('err');if(er)er.classList.remove('show');}}var m=G('ap-motiv'),me=G('ap-motiv-e');if(m&&m.value.trim().length<30){m.classList.add('err');if(me)me.classList.add('show');ok=false;}else if(m){m.classList.remove('err');if(me)me.classList.remove('show');}return ok;}
+function selCourse(el){var cs=document.querySelectorAll('.csc');for(var i=0;i<cs.length;i++)cs[i].classList.remove('sel');el.classList.add('sel');}
+var _selSchEl=null;
+function selSch(el){var bs=document.querySelectorAll('.sch-b');for(var i=0;i<bs.length;i++)bs[i].classList.remove('sel');el.classList.add('sel');_selSchEl=el;var e=G('ap-sch-e');if(e)e.classList.remove('show');}
+
+function togAll(){var a=G('ag0');var ids=['ag1','ag2','ag3','ag4'];for(var i=0;i<ids.length;i++){var e=G(ids[i]);if(e)e.checked=a.checked;}}
+function togAg(id){var e=G(id);if(e)e.checked=!e.checked;var a=G('ag0');if(a){var ids=['ag1','ag2','ag3','ag4'],ok=true;for(var i=0;i<ids.length;i++){var ei=G(ids[i]);if(!ei||!ei.checked)ok=false;}a.checked=ok;}}
+function submitApply(){
+  var ss=_selSchEl||document.querySelector('.sch-b.sel');
+  if(!ss){var e=G('ap-sch-e');if(e)e.classList.add('show');return;}
+  var ok=true;var ids=['ag1','ag2','ag3'];for(var i=0;i<ids.length;i++){var e=G(ids[i]);if(!e||!e.checked)ok=false;}
+  if(!ok){var e=G('ap-ag-e');if(e)e.classList.add('show');return;}
+  var e=G('ap-ag-e');if(e)e.classList.remove('show');
+  var num='2026-'+String(Math.floor(Math.random()*9000)+1000)+'-'+String(Math.floor(Math.random()*9000)+1000);
+  T('m-num',num);showM('m-apply');
+}
+
+renderStepBar(1);
+S('nav-user','none');
+S('nav-guest','flex');
+document.addEventListener('keydown',function(e){if(e.key==='Enter'){var lv=G('view-login');if(lv&&lv.classList.contains('active'))doLogin();}});
+</script>
+</body>
+</html>
